@@ -1,0 +1,26 @@
+
+(oepython_new) [ketan2@login10.frontier step1]$ which python
+/ccs/proj/chm155/IMPECCABLE/miniconda/envs/oepython_new/bin/python
+(oepython_new) [ketan2@login10.frontier step1]$ python -V
+Python 3.11.7
+(st_train) [ketan2@login10.frontier step2]$ which python
+/ccs/proj/chm155/IMPECCABLE/miniconda/envs/st_train/bin/python
+(st_train) [ketan2@login10.frontier step2]$ python -V
+Python 3.11.5
+(st_mpi_base) [ketan2@login10.frontier step3]$ which python
+/ccs/proj/chm155/IMPECCABLE/miniconda/envs/st_mpi_base/bin/python
+(st_mpi_base) [ketan2@login10.frontier step3]$ python -V
+Python 3.11.5
+(oepython_new) [ketan2@login10.frontier step4]$ which python
+/ccs/proj/chm155/IMPECCABLE/miniconda/envs/oepython_new/bin/python
+(oepython_new) [ketan2@login10.frontier step4]$ python -V
+Python 3.11.7
+(AmberTools23_Frontier-Balint) [ketan2@login10.frontier step5]$ which python
+/ccs/proj/chm155/IMPECCABLE/miniconda/envs/AmberTools23_Frontier-Balint/bin/python
+(AmberTools23_Frontier-Balint) [ketan2@login10.frontier step5]$ python -V
+Python 3.10.13
+(AmberTools23_Frontier-Balint) [ketan2@login10.frontier step5]$ which python
+/ccs/proj/chm155/IMPECCABLE/miniconda/envs/AmberTools23_Frontier-Balint/bin/python
+(AmberTools23_Frontier-Balint) [ketan2@login10.frontier step5]$ python -V
+Python 3.10.13
+
