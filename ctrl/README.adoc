@@ -152,18 +152,18 @@ Runs under nice:
 $ db-start.sh
 ----
 
-Check that the DB server is running::
-+
-----
-$ db-ping.sh
-----
-
 Create the DB::
 +
 Creates the DB with +DB_NAME+.
 +
 ----
 $ db-create.sh
+----
+
+Check that the DB server is running::
++
+----
+$ db-ping.sh
 ----
 
 Make the tables::

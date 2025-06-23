@@ -45,7 +45,8 @@ sql <<EOF
 \set ON_ERROR_STOP on
 \dt
 select pg_sleep($DB_DELAY);
-delete from task_ids;
+delete from tasks;
+delete from task_tags;
 EOF
 
 echo "db-reset.sh: OK"

@@ -1,0 +1,5 @@
+*.db
+# Asciidoc output:
+*.html
+# DB variable logs
+db_env_vars_*.txt
