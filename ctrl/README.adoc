@@ -32,9 +32,9 @@ $ export DB_DATA=/path/to/DB
 $ db-init.sh
 # Start the DB server (with no DBs!):
 $ db-start.sh
-# Create the EQ-SQL DB named "IMPECCABLE"
+# Create the DB named "IMPECCABLE"
 $ db-create.sh
-# Create tables inside DB EQ_SQL
+# Create tables inside the DB
 $ db-mk-tables.sh
 ----
 
@@ -163,8 +163,11 @@ $ db-create.sh
 Check that the DB server is running::
 +
 ----
-$ db-ping.sh
+$ db-ping.sh [-v]
 ----
+
+`-v`::
+Verbose: print DB info.
 
 Make the tables::
 +
