@@ -165,7 +165,7 @@ Check that the DB server is running::
 ----
 $ db-ping.sh [-v]
 ----
-
++
 `-v`::
 Verbose: print DB info.
 
