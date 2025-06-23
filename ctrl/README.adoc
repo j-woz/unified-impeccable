@@ -97,13 +97,13 @@ $ db-mk-tables.sh
 These variables configure the database connection.
 Normally, you set them in you env-*.sh script.
 You can also set these in the environment,
-or they will be set to defaults in db-settings.sh .
+or they will be set to defaults by `db-settings.sh` .
 
 `DB_HOST`::
 The database host (e.g., "thetalogin6" works from the compute nodes)
 
 `DB_PORT`::
-The database port (default: 11219)
+The database port (default: 25525)
 
 `DB_MODE`::
 Possible values: `ON`, `SOFT`, `OFF`.
@@ -209,6 +209,7 @@ $ db-stop.sh
 ----
 
 Interactive session::
+Our function `sql()` can be used interactively.
 +
 ----
 $ source db-settings.sh
