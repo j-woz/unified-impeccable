@@ -1,0 +1,20 @@
+I have finally managed to get all the submission scripts for the entire workflow on Frontier ready now. This should help you to setup and automate the workflow using SWIFT. Apologies for the delay but it required some development work to set things up.
+
+As described during the call on Tuesday, the full workflow consists of three phases:
+
+(a) Phase 1 consists of steps 1-3 (to be run only once)
+(b) Phase 2 is the traininig phase consisting of steps 4-6 (iteration 0)
+(c) Phase 3 is the production phase where steps 4 to 6 are run iteratively (iteration 1 onwards)
+
+To execute the full run, we use a standard directory structure. We create a “step$STEP_ID” directory that would contain the data related to each step (STEP_ID ranges from 1 to 6). Since we plan to run ensembles that is multiple independent executions of the full workflow (called “members” of our ensemble), the data for each member is organised within a specific directory named “mem$MEM_ID” (MEM_ID are zero-based indices). So, we create such "mem” directories within each “step” directory. Further, within directories “step{4-6}/mem{0-9}”, we also create a directory for each iteration, named “itr$ITER” where ITER are zero-based indices for each iteration. For instance, itr0 directories would contain the data for phase 2 under steps 4-6 for each member. 
+
+Now that I have explained the directory structure, I will move on to explaining the scripts that I have prepared. You can access them all at “/lustre/orion/chm155/proj-shared/apbhati/IMPECCABLE_2.0/DEBUG_RUN/". There are directories “step{1-6}” at this location. Within each step directory, you should look for submission scripts named “sub_p{1,2,3}_s{1-6}[a-d].sh”. For example, “sub_p2_s4b.sh" corresponds the submission script for phase 2, step4, sub-step b (yes, there are several sub steps within steps 4 and 5).
+
+Currently, I have prepared scripts for small scale runs (DEBUG_RUN) as you requested that would help you quickly debug and test things. All these runs use 1 node and require less than 1 hour to complete. I will later also prepare scripts for a full scale run (using 128 nodes to begin with). 
+
+In order to use these scripts, you need to pull the latest IMPECCABLE 2.0 code from GitHub. Within that location, you can create a master run directory (equivalent to “DEBUG_RUN” in my case) where you should create directories step{1-6}. Then copy all “sub_p*_s*.sh” scripts from each step directory from my location to the corresponding directories at your location. You need not copy any other files from my location as the submission scripts will take care of everything as long as the directory structure I specified is adhered to. Also, the submission scripts will automatically create “mem” and “itr” directories so don’t need to create/copy them.
+
+So far, I have already prepared all scripts up to phase 2. Phase 3 scripts will follow soon as they would follow naturally from phase 2 scripts with minor adaptations. But I think you already enough to work with as of now. 
+
+Finally, not surprisingly, you will need to run these scripts in sequence (steps 1 to 6 in order). Within steps where there are multiple sub-steps (such as steps 4 and 5) with corresponding submission scripts, they are appended with letters "a" to “d" and should be run in that order.
+
