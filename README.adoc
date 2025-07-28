@@ -1,1 +1,28 @@
-# unified-impeccable
+= unified-impeccable
+
+. Step 1: "HTP Docking": code is /htp_docking
+sub_p1_s1 - WALLTIME=20m - success in <22 minutes 
+
+. Step 2: "Surrogate Training": code is /surrogate_training
+sub_p1_s2 - WALLTIME=1h - success in <10 minutes 
+
+. Step 3: "Surrogate Inference":  code is /surrogate_inference
+sub_p1_s3 - WALLTIME=1h - success in <5 minutes 
+
+
+== TODO
+
+=== Justin
+
+Insert DB commands
+
+Create settings file with:
+  PROJECT/ACCOUNT
+  IMPECCABLE location
+
+Per-campaign job directory
+  EXP001, EXP002, ...
+
+=== Ketan 
+
+Try step4
