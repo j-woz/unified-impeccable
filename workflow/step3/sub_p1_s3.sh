@@ -1,9 +1,10 @@
 #!/bin/bash
 
-#SBATCH -A CHM155_001
+#SBATCH -A CHM155_004
 #SBATCH -J p1_s3
+# Merge streams:
 #SBATCH -o %x-%j.out
-#SBATCH -e %x-%j.err
+#SBATCH -e %x-%j.out
 #SBATCH -t 1:00:00
 #SBATCH -p batch
 #SBATCH -q debug
@@ -22,9 +23,11 @@ mkdir -p $MIOPEN_USER_DB_PATH
 source /ccs/proj/chm155/IMPECCABLE/activate_conda.sh
 conda activate st_mpi_base
 
+set -eu
+
 # Setting paths
-CODE_DIR=/lustre/orion/chm155/proj-shared/apbhati/IMPECCABLE_2.0/surrogate_inference
-WORK_DIR=/lustre/orion/chm155/proj-shared/apbhati/IMPECCABLE_2.0/DEBUG_RUN/step3
+CODE_DIR=/lustre/orion/chm155/proj-shared/$USER/IMPECCABLE.jw/surrogate_inference
+WORK_DIR=/lustre/orion/chm155/proj-shared/$USER/IMPECCABLE.jw/workflow/step3
 MEM_ID=0
 MEM_DIR=$WORK_DIR/mem$MEM_ID
 mkdir -p $MEM_DIR
@@ -39,8 +42,8 @@ mkdir -p Sorting_all
 #rm -f model.weights.h5
 cp $WORK_DIR/config_inference.json $MEM_DIR
 sed -i "s/ZIN/$DATASET/g" config_inference.json
-sed -i "s/\.\/VocabFiles/\.\.\/VocabFiles/g" config_inference.json
-sed -i "s/ 400,/ 100,/g" config_inference.json
+sed -i "s@PLACEHOLDER_DIR/VocabFiles@${WORK_DIR}/VocabFiles@g" config_inference.json
+sed -i "s/ 400,/ 5,/g" config_inference.json
 NNODES=1
 TASKS_PER_NODE=8
 

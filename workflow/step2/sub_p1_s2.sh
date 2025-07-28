@@ -1,9 +1,10 @@
 #!/bin/bash
 
-#SBATCH -A CHM155_001
+#SBATCH -A chm155_004
 #SBATCH -J p1_s2
+# Merge streams:
 #SBATCH -o %x-%j.out
-#SBATCH -e %x-%j.err
+#SBATCH -e %x-%j.out
 #SBATCH -t 1:00:00
 #SBATCH -p batch
 #SBATCH -q debug
@@ -23,11 +24,12 @@ source /ccs/proj/chm155/IMPECCABLE/activate_conda.sh
 conda activate st_train
 
 # Setting paths
-CODE_DIR=/lustre/orion/chm155/proj-shared/apbhati/IMPECCABLE_2.0/surrogate_training
-WORK_DIR=/lustre/orion/chm155/proj-shared/apbhati/IMPECCABLE_2.0/DEBUG_RUN/step2
+set -x
+CODE_DIR=/lustre/orion/chm155/proj-shared/$USER/IMPECCABLE_2.0/surrogate_training
+WORK_DIR=/lustre/orion/chm155/proj-shared/$USER/IMPECCABLE_2.0/workflow/step2
 MEM_ID=0
 MEM_DIR=$WORK_DIR/mem$MEM_ID
-mkdir -p $MEM_DIR
+mkdir -p $MEM_DIR2
 STEP1_DIR=$WORK_DIR/../step1/mem$MEM_ID
 
 # Setting runs
@@ -35,15 +37,18 @@ cp -r $CODE_DIR/* $WORK_DIR/
 cd $MEM_DIR
 mkdir -p trainoutput
 #rm model.weights.h5
+
 cp $WORK_DIR/config_training.json $MEM_DIR
-sed -i "s/\.\/VocabFiles/\.\.\/VocabFiles/g" config_training.json
-sed -i "s/ 300,/ 100,/g" config_training.json
+
+sed -i "s@PLACEHOLDER_DIR/VocabFiles@${WORK_DIR}/VocabFiles@g" config_training.json
+sed -i "s/ 300,/ 10,/g" config_training.json
 python3 $WORK_DIR/preprocess.py -s $STEP1_DIR/scores -o trainoutput
 NNODES=1
 TASKS_PER_NODE=8
 
 # Executing runs
-srun -N ${NNODES} -n $((NNODES*TASKS_PER_NODE)) -S 0 python3 $WORK_DIR/smiles_regress_transformer_run.py
+# srun -N ${NNODES} -n $((NNODES*TASKS_PER_NODE)) -S 0
+python3 $WORK_DIR/smiles_regress_transformer_run.py
 
 # Validating runs
 cd $MEM_DIR
