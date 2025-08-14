@@ -37,9 +37,9 @@ source $THIS/sub_p1_s1-setup.sh
 
   cd $MEM_DIR
   pwd -P
-  VALIDATE_ARGS=( -s $CODE_DIR/scores -c config_htp.json )
+  VALIDATE_ARGS=( -s $MEM_DIR/scores -c config_htp.json )
   /usr/bin/time --format="TIME: %E" \
-                python $WORK_DIR/validate_1.py $VALIDATE_ARGS
+                python $WORK_DIR/validate_1.py ${VALIDATE_ARGS[@]}
   # DB INSERT "sub_p1_s1/validate" OK;
 )
 
