@@ -1,7 +1,6 @@
 
 # Workflow settings- exported to M4 filter
 
-DATA_DIR=...
 # Location under WORK_DIR
 export SMILES_INPUT=input/Training.smi
 # Location under WORK_DIR
