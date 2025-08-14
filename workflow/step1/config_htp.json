@@ -1,0 +1,17 @@
+{
+"smiles_input": "m4_getenv(WORK_DIR)/m4_getenv(SMILES_INPUT)",
+"data_pwd":     "m4_getenv(INFERENCE_DATA)",
+"dataset":      "m4_getenv(DATASET)",
+"recep_file":   "m4_getenv(WORK_DIR)/m4_getenv(RECEP_FILE)",
+"sample_size":   m4_getenv(SAMPLE_SIZE),
+"max_confs": 10,
+"batch_size": 10,
+"pose_gen": false,
+"score_pattern": "scores/4ui5_scores",
+"score_cutoff": 10,
+"temp_dir": "lig_confs",
+"output_traj": "output_combined_trajectories",
+"protein_pdb": "prot.pdb",
+"score_output": "scores",
+"train_out": "trainoutput"
+}

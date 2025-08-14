@@ -1,6 +1,5 @@
-#!/bin/bash
 
-# Frontier version - needs to be split up
+# SUB P1 S1 FRONTIER
 
 #SBATCH -A chm155_004
 #SBATCH -J p1_s1
@@ -14,25 +13,10 @@
 #SBATCH --tasks-per-node 64
 #SBATCH -S 0
 
-set -x
-set -eu
+THIS=$( realpath $( dirname $0 ) )
+source $THIS/../sfw-frontier.sh
 
-# Setting paths
-MEM_ID=0
-MEM_DIR=$WORK_DIR/mem$MEM_ID
-mkdir -p $MEM_DIR
-
-# Setting runs
-cp -r $CODE_DIR/* $WORK_DIR/
-cd $MEM_DIR
-mkdir -p lig_confs
-mkdir -p scores
-cp $WORK_DIR/config_htp.json $MEM_DIR
-sed -i "s/ZIN/BDB/g" config_htp.json
-sed -i "s/1000000/1000/g" config_htp.json
-sed -i "s@PLACEHOLDER_DIR/input@${WORK_DIR}/input@g" config_htp.json
-NNODES=1
-TASKS_PER_NODE=64
+source $THIS/sub_p1_s1-setup.sh
 
 # Executing runs
 SRUN_ARGS=(

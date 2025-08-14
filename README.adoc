@@ -1,13 +1,39 @@
 = unified-impeccable
 
 . Step 1: "HTP Docking": code is /htp_docking
-sub_p1_s1 - WALLTIME=20m - success in <22 minutes 
+sub_p1_s1 - WALLTIME=20m - success in <22 minutes
 
 . Step 2: "Surrogate Training": code is /surrogate_training
-sub_p1_s2 - WALLTIME=1h - success in <10 minutes 
+sub_p1_s2 - WALLTIME=1h - success in <10 minutes
 
 . Step 3: "Surrogate Inference":  code is /surrogate_inference
-sub_p1_s3 - WALLTIME=1h - success in <5 minutes 
+sub_p1_s3 - WALLTIME=1h - success in <5 minutes
+
+
+== Script architecture
+
+=== Install time
+
+* install-conda-pkgs.sh
+
+=== Workflow-level
+
+* python-SITE.sh
+** Load Anaconda, etc.
+* sfw-SITE.sh
+** Non-Python software
+** License
+* sfw-user.sh
+** Specific to the user that cloned the workflow.  User must specify the location of the IMPECCABLE clone and a desired output directory.
+* settings.sh
+User may edit this to set SMILES_INPUT, RECEP_FILE, INFERENCE_DATA location
+
+=== Step-level
+
+* submit-SITE.sh
+* STEP-SITE.sh (e.g., sub_p1_s1-aurora.sh)
+* STEP-setup.sh
+* Filter any input files
 
 
 == TODO
@@ -23,6 +49,8 @@ Create settings file with:
 Per-campaign job directory
   EXP001, EXP002, ...
 
-=== Ketan 
+PSI/J
+
+=== Ketan
 
 Try step4

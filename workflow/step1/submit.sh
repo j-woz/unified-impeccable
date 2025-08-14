@@ -1,6 +1,8 @@
 #!/bin/bash
 set -eu
 
+# SUBMIT FRONTIER
+
 THIS=$( dirname $0 )
 
 set -x
