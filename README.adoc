@@ -19,10 +19,10 @@ sub_p1_s3 - WALLTIME=1h - success in <5 minutes
 === Workflow-level
 
 * python-SITE.sh
-** Load Anaconda, etc.
+** Loads Anaconda, etc.
 * sfw-SITE.sh
-** Non-Python software
-** License
+** Sets up non-Python software
+** Specifies license
 * sfw-user.sh
 ** Specific to the user that cloned the workflow.  User must specify the location of the IMPECCABLE clone and a desired output directory.
 * settings.sh
@@ -32,9 +32,22 @@ User may edit this to set SMILES_INPUT, RECEP_FILE, INFERENCE_DATA location
 
 * submit-SITE.sh
 * STEP-SITE.sh (e.g., sub_p1_s1-aurora.sh)
+** sources workflow-level settings
 * STEP-setup.sh
-* Filter any input files
+** Copies software to WORK_DIR
+** Sets up MEM_DIR
+** Filters input files
 
+== Typical user scenario
+
+. Clone IMPECCABLE
+. Clone this workflow repo
+. Set up Python and run install-conda-pkgs.sh
+.. Specify python configuration in python-SITE.sh
+. Edit sfw-SITE.sh for license and any other software
+. Obtain inference data
+. Edit settings.sh to set up INFERENCE_DATA location, etc.
+. Start step with stepN/submit-SITE.sh
 
 == TODO
 
@@ -48,6 +61,8 @@ Create settings file with:
 
 Per-campaign job directory
   EXP001, EXP002, ...
+
+Output stream from job should go into job output directory
 
 PSI/J
 
