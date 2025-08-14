@@ -6,4 +6,4 @@ set -eu
 THIS=$( dirname $0 )
 
 set -x
-sbatch $THIS/sub_p1_s1.sh
+sbatch $THIS/sub_p1_s1-frontier.sh

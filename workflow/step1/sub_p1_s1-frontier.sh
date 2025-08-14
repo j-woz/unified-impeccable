@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # SUB P1 S1 FRONTIER
 
@@ -14,8 +15,11 @@
 #SBATCH -S 0
 
 THIS=$( realpath $( dirname $0 ) )
-source $THIS/../sfw-frontier.sh
 
+source $THIS/../python-frontier.sh
+source $THIS/../sfw-frontier.sh
+source $THIS/../sfw-user.sh
+source $THIS/../settings.sh
 source $THIS/sub_p1_s1-setup.sh
 
 # Executing runs
