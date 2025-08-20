@@ -17,9 +17,7 @@ set -eu
 THIS=$PBS_O_WORKDIR
 cd $THIS
 
-source $THIS/../python-aurora.sh
-source $THIS/../sfw-aurora.sh
-source $THIS/../sfw-user.sh
+source $THIS/../setup-aurora.sh
 source $THIS/../settings.sh
 source $THIS/sub_p1_s1-setup.sh
 
