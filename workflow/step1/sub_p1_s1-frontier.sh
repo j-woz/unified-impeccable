@@ -15,6 +15,7 @@
 #SBATCH -S 0
 
 THIS=$( realpath $( dirname $0 ) )
+cd $THIS
 
 source $THIS/../python-frontier.sh
 source $THIS/../sfw-frontier.sh
