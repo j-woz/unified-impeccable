@@ -20,16 +20,23 @@ if [[ ! -e /tmp/TF ]]
 then
   # TAR=/lus/flare/projects/candle_aesp_CNDA/sfw/TF.tar
   TAR=~/W/wozniak/conda-tgz/TF-IMPECCABLE.tar
-  echo "extracting $TAR ..."
+  echo "setup-aurora.sh: extracting $TAR ..."
   tar xf $TAR -C /tmp
-  echo "extracted."
+  echo "setup-aurora.sh: extracted."
 fi
 
 # These functions trigger errors:
+echo "setup-aurora.sh: module load frameworks..."
 set +eu
+# This source suppresses warnings about conda deactivate:
+source /opt/aurora/24.347.0/oneapi/intel-conda-miniforge/etc/profile.d/conda.sh
 module load frameworks
+echo "setup-aurora.sh: activating anaconda..."
 conda activate /tmp/TF
 set -eu
+
+echo "setup-aurora.sh: python:" $( which python )
+echo "setup-aurora.sh: CONDA_PREFIX:" ${CONDA_PREFIX}
 
 ## USER SETTINGS
 
