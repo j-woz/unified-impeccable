@@ -28,10 +28,10 @@ sub_p1_s3 - WALLTIME=1h - success in <5 minutes
 ** Python Settings
 *** Loads Anaconda, etc.
 ** User Settings
-** Specific to the user that cloned the workflow.  User must specify the location of the IMPECCABLE clone and a desired output directory.
+*** Specific to the user that cloned the workflow.  User must specify the location of the IMPECCABLE clone and a desired output directory.
 * settings.sh
 ** Application-level settings for a specific science run.
-*** User may edit this to set SMILES_INPUT, RECEP_FILE, INFERENCE_DATA location
+** User may edit this to set SMILES_INPUT, RECEP_FILE, INFERENCE_DATA location
 
 === Step-level
 
