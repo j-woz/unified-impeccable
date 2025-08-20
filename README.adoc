@@ -3,16 +3,22 @@
 == Steps
 
 Step 1 "HTP Docking"::
-code is /htp_docking
+Code is `/htp_docking`
 +
-`sub_p1_s1`: WALLTIME=20m - success in <22 minutes
+`sub_p1_s1`: WALLTIME=20m
++
+* Frontier: success in <22 minutes
+* Aurora: success in <?? minutes
 
-. Step 2: "Surrogate Training": code is /surrogate_training
-sub_p1_s2 - WALLTIME=1h - success in <10 minutes
+Step 2: "Surrogate Training"::
+Code is `/surrogate_training`
++
+`sub_p1_s2`: - WALLTIME=1h - success in <10 minutes
 
-. Step 3: "Surrogate Inference":  code is /surrogate_inference
-sub_p1_s3 - WALLTIME=1h - success in <5 minutes
-
+Step 3: "Surrogate Inference"::
+Code is `/surrogate_inference`
++
+`sub_p1_s3` - WALLTIME=1h - success in <5 minutes
 
 == Script architecture
 
