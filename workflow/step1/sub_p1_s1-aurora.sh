@@ -17,7 +17,9 @@ set -eu
 THIS=$PBS_O_WORKDIR
 cd $THIS
 
-source $THIS/../setup-aurora.sh
+export SITE=aurora
+
+source $THIS/../setup-$SITE.sh
 source $THIS/../settings.sh
 source $THIS/sub_p1_s1-setup.sh
 

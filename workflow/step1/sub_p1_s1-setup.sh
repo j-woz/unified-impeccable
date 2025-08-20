@@ -2,11 +2,12 @@
 
 # SUB P1 S1 SETUP
 # Portable setup script
+# Assumes SITE is in the environment
 
 set -eu
 
 THIS=$( realpath $( dirname $0 ) )
-source $THIS/../sfw-user.sh
+source $THIS/../setup-$SITE.sh
 
 # Setting paths
 CODE_DIR=$IMPECCABLE_CODE/htp_docking
