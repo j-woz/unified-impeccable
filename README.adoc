@@ -25,7 +25,7 @@ sub_p1_s3 - WALLTIME=1h - success in <5 minutes
 * setup-SITE.sh
 ** General Software
 *** Sets up non-Python software (licenses, schedulers)
-** python-SITE.sh
+** Python Settings
 *** Loads Anaconda, etc.
 ** User Settings
 ** Specific to the user that cloned the workflow.  User must specify the location of the IMPECCABLE clone and a desired output directory.
