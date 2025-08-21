@@ -42,16 +42,6 @@ Code is `/surrogate_inference`
 ** Application-level settings for a specific science run.
 ** User may edit this to set SMILES_INPUT, RECEP_FILE, INFERENCE_DATA location
 
-=== Step-level
-
-* submit-SITE.sh
-* STEP-SITE.sh (e.g., sub_p1_s1-aurora.sh)
-** sources workflow-level settings
-* STEP-setup.sh
-** Copies software to WORK_DIR
-** Sets up MEM_DIR
-** Filters input files
-
 == Typical user scenario
 
 . Clone IMPECCABLE
@@ -65,13 +55,17 @@ You can point to this or make a copy.
 . Edit `settings.sh` to set up the `INFERENCE_DATA` location, etc.
 . Start step with `stepN/submit-SITE.sh`
 
-== Step progress
+== Step progress model
 
 . User invokes `stepN/submit-SITE.sh` .  This submits the job to the scheduler.
 . This runs `stepN/sub_pP_sN-SITE.sh` ,
-.. which refers to `../setup-SITE.sh` for settings and
+.. which refers to `../setup-SITE.sh` for site settings and
 .. loads application settings from `../settings.sh`
 . `sub_pP_sN-SITE.sh`:
+.. sources `sub_pP_sN-setup.sh`, whicih:
+... Sets up `CODE_DIR`, `WORK_DIR`, `MEM_DIR`
+... Copies software to `WORK_DIR`
+... Filters input files via m4 (e.g., JSON)
 .. contains the SITE-specific scheduler settings and
 .. invokes the science codes via `mpiexec`, `srun`, etc.
 
@@ -83,7 +77,7 @@ Insert DB commands
 
 Create settings file with:
   PROJECT/ACCOUNT
-  IMPECCABLE location
+  IMPECCABLE location - DONE
 
 Per-campaign job directory
   EXP001, EXP002, ...
