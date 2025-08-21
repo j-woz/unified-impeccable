@@ -16,9 +16,6 @@ MEM_ID=0
 MEM_DIR=$WORK_DIR/mem$MEM_ID
 mkdir -p $MEM_DIR
 
-echo CODE_DIR $CODE_DIR
-echo WORK_DIR $WORK_DIR
-
 # Setting runs
 cp -r $CODE_DIR/* $WORK_DIR/
 cd $MEM_DIR
