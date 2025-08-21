@@ -14,14 +14,19 @@
 #SBATCH --tasks-per-node 64
 #SBATCH -S 0
 
+<<<<<<< Updated upstream
 THIS=$( realpath $( dirname $0 ) )
 cd $THIS
+=======
+#THIS=$( realpath $( dirname $0 ) )
+#cd $THIS
+>>>>>>> Stashed changes
 
-source $THIS/../python-frontier.sh
-source $THIS/../sfw-frontier.sh
-source $THIS/../sfw-user.sh
-source $THIS/../settings.sh
-source $THIS/sub_p1_s1-setup.sh
+export SITE=frontier
+
+source /lustre/orion/proj-shared/chm155/ketan2/unified-impeccable/workflow/setup-$SITE.sh
+source /lustre/orion/proj-shared/chm155/ketan2/unified-impeccable/workflow/settings.sh
+source /lustre/orion/proj-shared/chm155/ketan2/unified-impeccable/workflow/step1/sub_p1_s1-setup.sh
 
 # Executing runs
 SRUN_ARGS=(

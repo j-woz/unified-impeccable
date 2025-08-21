@@ -6,8 +6,8 @@
 
 set -eu
 
-THIS=$( realpath $( dirname $0 ) )
-source $THIS/../setup-${SITE:-UNKNOWN}.sh
+#THIS=$( realpath $( dirname $0 ) )
+source /lustre/orion/chm155/proj-shared/ketan2/unified-impeccable/workflow/setup-${SITE:-UNKNOWN}.sh
 
 # Setting paths
 CODE_DIR=$IMPECCABLE_CODE/htp_docking
@@ -23,7 +23,8 @@ mkdir -p lig_confs
 mkdir -p scores
 
 echo "m4 generating:" $MEM_DIR/config_htp.json
-m4 -P $THIS/../common.m4 $THIS/config_htp.json > $MEM_DIR/config_htp.json
+m4 -P /lustre/orion/chm155/proj-shared/ketan2/unified-impeccable/workflow/common.m4 /lustre/orion/chm155/proj-shared/ketan2/unified-impeccable/workflow/step1/config_htp.json > $MEM_DIR/config_htp.json
 
 NNODES=1
 TASKS_PER_NODE=64
+
