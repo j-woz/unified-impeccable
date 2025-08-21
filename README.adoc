@@ -60,8 +60,9 @@ Code is `/surrogate_inference`
 . Edit `setup-SITE.sh` for license and any other software, including Python
 . Obtain inference data
 .. On Frontier, at: +
-`/lustre/orion/chm155/proj-shared/apbhati/InferenceData`
-. Edit `settings.sh` to set up INFERENCE_DATA location, etc.
+`/lustre/orion/chm155/proj-shared/apbhati/InferenceData` +
+You can point to this or make a copy.
+. Edit `settings.sh` to set up the `INFERENCE_DATA` location, etc.
 . Start step with `stepN/submit-SITE.sh`
 
 == Step progress
