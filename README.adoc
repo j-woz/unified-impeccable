@@ -56,12 +56,13 @@ Code is `/surrogate_inference`
 
 . Clone IMPECCABLE
 . Clone this workflow repo
-. Set up Python and run install-conda-pkgs.sh
-.. Specify python configuration in python-SITE.sh
-. Edit setup-SITE.sh for license and any other software
+. Set up Python and run `install-py-pkgs.sh`
+. Edit `setup-SITE.sh` for license and any other software, including Python
 . Obtain inference data
-. Edit settings.sh to set up INFERENCE_DATA location, etc.
-. Start step with stepN/submit-SITE.sh +
+.. On Frontier, at: +
+`/lustre/orion/chm155/proj-shared/apbhati/InferenceData`
+. Edit `settings.sh` to set up INFERENCE_DATA location, etc.
+. Start step with `stepN/submit-SITE.sh`
 
 == Step progress
 
