@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # SUB P1 S1 AURORA
+# Aurora-specific launch of step tasks
 
 #PBS -A workflow_scaling
 #PBS -N p1_s1
@@ -19,7 +20,6 @@ cd $THIS
 
 export SITE=aurora
 
-source $THIS/../setup-$SITE.sh
 source $THIS/../settings.sh
 source $THIS/sub_p1_s1-setup.sh
 

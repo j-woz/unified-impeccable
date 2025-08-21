@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # SUB P1 S1 FRONTIER
+# Frontier-specific launch of step tasks
 
 #SBATCH -A chm155_004
 #SBATCH -J p1_s1
@@ -49,7 +50,6 @@ SRUN_ARGS=(
   /usr/bin/time --format="TIME: %E" \
                 python $WORK_DIR/validate_1.py -s $WORK_DIR/scores -c config_htp.json
   # DB INSERT "sub_p1_s1/validate" OK;
-
 )
 
 echo $0 OK
