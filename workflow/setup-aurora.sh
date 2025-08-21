@@ -39,6 +39,7 @@ echo "setup-aurora.sh: python:" $( which python )
 echo "setup-aurora.sh: CONDA_PREFIX:" ${CONDA_PREFIX}
 
 ## USER SETTINGS
+# Do not commit changes here to git: they are specific to the user
 
 # Frontier:
 # CODE_DIR=/lustre/orion/chm155/proj-shared/$USER/IMPECCABLE_2.0/htp_docking
