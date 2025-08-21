@@ -14,13 +14,8 @@
 #SBATCH --tasks-per-node 64
 #SBATCH -S 0
 
-<<<<<<< Updated upstream
-THIS=$( realpath $( dirname $0 ) )
-cd $THIS
-=======
 #THIS=$( realpath $( dirname $0 ) )
 #cd $THIS
->>>>>>> Stashed changes
 
 export SITE=frontier
 
