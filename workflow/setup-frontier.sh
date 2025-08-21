@@ -17,7 +17,7 @@ export OE_LICENSE=/ccs/proj/chm155/IMPECCABLE/High-Throughput-Docking/oe_license
 set +eu
 source /ccs/proj/chm155/IMPECCABLE/activate_conda.sh
 conda activate oepython_new
-set +eu
+set -eu
 
 echo "setup-frontier.sh: python:" $( which python )
 echo "setup-frontier.sh: CONDA_PREFIX:" ${CONDA_PREFIX}
