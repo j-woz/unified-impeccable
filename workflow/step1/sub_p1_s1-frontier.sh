@@ -17,19 +17,7 @@
 THIS=$SLURM_SUBMIT_DIR
 cd $THIS
 
-echo PWD $PWD
-echo THIS $THIS
-echo SLURM_SUBMIT_DIR $SLURM_SUBMIT_DIR
-
-printenv > ~/slurm-env.txt
-
-exit
-
 export SITE=frontier
-
-# source /lustre/orion/proj-shared/chm155/ketan2/unified-impeccable/workflow/setup-$SITE.sh
-# source /lustre/orion/proj-shared/chm155/ketan2/unified-impeccable/workflow/settings.sh
-# source /lustre/orion/proj-shared/chm155/ketan2/unified-impeccable/workflow/step1/sub_p1_s1-setup.sh
 
 # Executing runs
 SRUN_ARGS=(
