@@ -14,17 +14,20 @@
 #SBATCH --tasks-per-node 64
 #SBATCH -S 0
 
-THIS=$SLURM_SUBMIT_DIR
+export THIS=$SLURM_SUBMIT_DIR
 cd $THIS
 
 export SITE=frontier
+
+source $THIS/../settings.sh
+source $THIS/sub_p1_s1-setup.sh
 
 # Executing runs
 SRUN_ARGS=(
   -N ${NNODES}
   -n $((NNODES*TASKS_PER_NODE))
   -S 0
-  --ntasks-per-node=64
+  --ntasks-per-node=$TASKS_PER_NODE
 )
 
 (
@@ -44,7 +47,7 @@ SRUN_ARGS=(
   pwd -P
   ls
   /usr/bin/time --format="TIME: %E" \
-                python $WORK_DIR/validate_1.py -s $CODE_DIR/scores -c config_htp.json
+                python $WORK_DIR/validate_1.py -s $WORK_DIR/scores -c config_htp.json
   # DB INSERT "sub_p1_s1/validate" OK;
 
 )
