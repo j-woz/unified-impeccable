@@ -27,7 +27,7 @@ Code is `/surrogate_inference`
 
 === Install time
 
-* install-conda-pkgs.sh
+* `install-py-pkgs.sh`
 
 === Workflow-level
 
