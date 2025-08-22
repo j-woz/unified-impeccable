@@ -49,9 +49,9 @@ A subdirectory of `WORK_DIR` for step data.  This is the `PWD` for the science c
 *** Loads Anaconda, etc.
 ** User Settings
 *** Specific to the user that cloned the workflow.  User must specify the location of the IMPECCABLE clone and a desired output directory.
-* settings.sh
+* `settings.sh`
 ** Application-level settings for a specific science run.
-** User may edit this to set SMILES_INPUT, RECEP_FILE, INFERENCE_DATA location
+** User may edit this to set `SMILES_INPUT`, `RECEP_FILE`, `INFERENCE_DATA` locations, etc.
 
 == Typical user scenario
 
