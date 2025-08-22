@@ -29,9 +29,20 @@ Code is `/surrogate_inference`
 
 * `install-py-pkgs.sh`
 
-=== Workflow-level
+=== Naming conventions
 
-* setup-SITE.sh
+`CODE_DIR`::
+The original location of the code, typically a git clone
+
+`WORK_DIR`::
+The code is copied here for execution
+
+`MEM_DIR`::
+A subdirectory of `WORK_DIR` for step data.  This is the `PWD` for the science code execution
+
+=== Workflow-level scripts
+
+* `setup-SITE.sh`
 ** General Software
 *** Sets up non-Python software (licenses, schedulers)
 ** Python Settings
