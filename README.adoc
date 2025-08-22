@@ -58,6 +58,10 @@ A subdirectory of `WORK_DIR` for step data.  This is the `PWD` for the science c
 . Clone IMPECCABLE
 . Clone this workflow repo
 . Set up Python and run `install-py-pkgs.sh`
+. Copy
+.. `site-SITE-template.sh` to `site-SITE-settings.sh`
+.. `impeccable-template.sh` to `impeccable-settings.sh`
+.. Thus, `*-settings.sh` files are local and should not be pushed to git.
 . Edit `setup-SITE.sh` for license and any other software, including Python
 . Obtain inference data
 .. On Frontier, at: +
