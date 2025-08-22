@@ -48,7 +48,7 @@ SRUN_ARGS=(
   pwd -P
   ls
   /usr/bin/time --format="TIME: %E" \
-                python $WORK_DIR/validate_1.py -s $WORK_DIR/scores -c config_htp.json
+                python $WORK_DIR/validate_1.py -s $MEM_DIR/scores -c config_htp.json
   # DB INSERT "sub_p1_s1/validate" OK;
 )
 
