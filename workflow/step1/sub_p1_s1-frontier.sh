@@ -20,7 +20,7 @@ cd $THIS
 
 export SITE=frontier
 
-source $THIS/../settings.sh
+source $THIS/../impeccable-settings.sh
 source $THIS/sub_p1_s1-setup.sh
 
 # Executing runs

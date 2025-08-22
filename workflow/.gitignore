@@ -1,3 +1,6 @@
 # Program outputs:
 *.out
 *.err
+
+# Local settings derived from templates:
+*-settings.sh

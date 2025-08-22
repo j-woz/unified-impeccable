@@ -7,7 +7,7 @@
 
 set -eu
 
-source $THIS/../setup-${SITE:-UNKNOWN}.sh
+source $THIS/../site-${SITE:-UNKNOWN}-settings.sh
 
 # Setting paths
 CODE_DIR=$IMPECCABLE_CODE/htp_docking
