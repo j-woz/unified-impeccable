@@ -42,14 +42,14 @@ A subdirectory of `WORK_DIR` for step data.  This is the `PWD` for the science c
 
 === Workflow-level scripts
 
-* `setup-SITE.sh`
+* `site-SITE-settings.sh`
 ** General Software
 *** Sets up non-Python software (licenses, schedulers)
 ** Python Settings
 *** Loads Anaconda, etc.
 ** User Settings
 *** Specific to the user that cloned the workflow.  User must specify the location of the IMPECCABLE clone and a desired output directory.
-* `settings.sh`
+* `impeccable-settings.sh`
 ** Application-level settings for a specific science run.
 ** User may edit this to set `SMILES_INPUT`, `RECEP_FILE`, `INFERENCE_DATA` locations, etc.
 
@@ -67,15 +67,15 @@ A subdirectory of `WORK_DIR` for step data.  This is the `PWD` for the science c
 .. On Frontier, at: +
 `/lustre/orion/chm155/proj-shared/apbhati/InferenceData` +
 You can point to this or make a copy.
-. Edit `settings.sh` to set up the `INFERENCE_DATA` location, etc.
+. Edit `impeccable-settings.sh` to set up the `INFERENCE_DATA` location, etc.
 . Start step with `stepN/submit-SITE.sh`
 
 == Step progress model
 
 . User invokes `stepN/submit-SITE.sh` .  This submits the job to the scheduler.
 . This runs `stepN/sub_pP_sN-SITE.sh` ,
-.. which refers to `../setup-SITE.sh` for site settings and
-.. loads application settings from `../settings.sh`
+.. which refers to `../site-SITE-settings.sh` for site settings and
+.. loads application settings from `../impeccable-settings.sh`
 . `sub_pP_sN-SITE.sh`:
 .. sources `sub_pP_sN-setup.sh`, whicih:
 ... Sets up `CODE_DIR`, `WORK_DIR`, `MEM_DIR`
