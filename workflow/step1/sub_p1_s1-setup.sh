@@ -24,6 +24,7 @@ mkdir -pv scores
 
 echo "sub_p1_s1-setup: CODE_DIR:  " $WORK_DIR
 echo "sub_p1_s1-setup: WORK_DIR:  " $WORK_DIR
+echo "sub_p1_s1-setup: MEM_DIR:   " $MEM_DIR
 echo "sub_p1_s1-setup: m4 writing:" $MEM_DIR/config_htp.json
 # m4 -P /lustre/orion/chm155/proj-shared/ketan2/unified-impeccable/workflow/common.m4 /lustre/orion/chm155/proj-shared/ketan2/unified-impeccable/workflow/step1/config_htp.json > $MEM_DIR/config_htp.json
 
