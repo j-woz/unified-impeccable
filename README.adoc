@@ -89,7 +89,7 @@ You can point to this or make a copy.
 We call this `CONDA_ENVIRONMENT`.
 
 * step1: oepython_new 
-* step2: oepython_new 
+* step2: st_train
 * step3: st_mpi_base
 
 This is specified for each step by `sub_pP_sN-SITE.sh` , which passes it into the `sub_pP_sN-setup.sh` script, which passes it to `site-SITE-settings.sh`, which activates that environment after loading Python for that site.
