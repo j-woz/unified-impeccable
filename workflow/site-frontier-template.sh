@@ -18,6 +18,7 @@ export OE_LICENSE=/ccs/proj/chm155/IMPECCABLE/High-Throughput-Docking/oe_license
 # These functions trigger errors:
 set +eu
 source /ccs/proj/chm155/IMPECCABLE/activate_conda.sh
+echo "setup-frontier.sh: activating:" $CONDA_ENVIRONMENT
 conda activate $CONDA_ENVIRONMENT
 set -eu
 
