@@ -12,6 +12,8 @@
 #SBATCH --tasks-per-node 8
 #SBATCH -S 0
 
+set -eu
+
 export THIS=$SLURM_SUBMIT_DIR
 cd $THIS
 
@@ -22,9 +24,11 @@ source $THIS/sub_p1_s3-setup.sh st_mpi_base
 
 
 # Setting environments
+set +eu
 module reset
 module load PrgEnv-gnu
 module load rocm/6.0.0
+set -eu
 
 export TF_FORCE_GPU_ALLOW_GROWTH=true
 export MIOPEN_USER_DB_PATH=/tmp/$USER/miopen-cache
@@ -35,7 +39,6 @@ then
 fi
 mkdir -p $MIOPEN_USER_DB_PATH
 
-set -eu
 set -x
 
 # Executing runs
