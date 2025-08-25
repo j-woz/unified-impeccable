@@ -12,18 +12,22 @@
 #SBATCH --tasks-per-node 8
 #SBATCH -S 0
 
+set -eu
+
 export THIS=$SLURM_SUBMIT_DIR
 cd $THIS
 
 export SITE=frontier
 
 source $THIS/../impeccable-settings.sh
-source $THIS/sub_p1_s2-setup.sh oepython_new
+source $THIS/sub_p1_s2-setup.sh st_train
 
 # Setting environments
+set +eu
 module reset
 module load PrgEnv-gnu
 module load rocm/6.0.0
+set -eu
 
 export TF_FORCE_GPU_ALLOW_GROWTH=true
 export MIOPEN_USER_DB_PATH=/tmp/$USER/miopen-cache
@@ -33,15 +37,6 @@ then
   rm -r  $MIOPEN_USER_DB_PATH
 fi
 mkdir -p $MIOPEN_USER_DB_PATH
-
-conda activate st_train
-
-# Setting paths
-set -x
-MEM_ID=0
-MEM_DIR=$WORK_DIR/mem$MEM_ID
-mkdir -p $MEM_DIR
-STEP1_DIR=$WORK_DIR/../step1/mem$MEM_ID
 
 set -x
 # Executing runs
