@@ -5,7 +5,7 @@
 # Assumes SITE is in the environment
 
 THIS=$( realpath $( dirname $0 ) )
-source $THIS/../setup-${SITE:-UNKNOWN}.sh
+source $THIS/../site-${SITE:-UNKNOWN}-settings.sh
 
 # Setting paths
 CODE_DIR=$IMPECCABLE_CODE/surrogate_training
@@ -25,7 +25,9 @@ cp -v $WORK_DIR/config_training.json .
 
 sed -i "s@PLACEHOLDER_DIR/VocabFiles@${WORK_DIR}/VocabFiles@g" config_training.json
 sed -i "s/ 300,/ 10,/g" config_training.json
-set -x
-python $WORK_DIR/preprocess.py -s $STEP1_DIR/scores -o trainoutput
+(
+  set -x
+  python $WORK_DIR/preprocess.py -s $STEP1_DIR/scores -o trainoutput
+)
 NNODES=1
 TASKS_PER_NODE=8

@@ -12,40 +12,38 @@
 #SBATCH --tasks-per-node 8
 #SBATCH -S 0
 
+export THIS=$SLURM_SUBMIT_DIR
+cd $THIS
+
+export SITE=frontier
+
+source $THIS/../impeccable-settings.sh
+source $THIS/sub_p1_s2-setup.sh
+
 # Setting environments
 module reset
 module load PrgEnv-gnu
 module load rocm/6.0.0
+
 export TF_FORCE_GPU_ALLOW_GROWTH=true
-export MIOPEN_USER_DB_PATH=./miopen-cache
+export MIOPEN_USER_DB_PATH=/tmp/$USER/miopen-cache
 export MIOPEN_CUSTOM_CACHE_DIR=$MIOPEN_USER_DB_PATH
+if [[ -d $MIOPEN_USER_DB_PATH ]]
+then
+  rm -r  $MIOPEN_USER_DB_PATH
+fi
 mkdir -p $MIOPEN_USER_DB_PATH
-source /ccs/proj/chm155/IMPECCABLE/activate_conda.sh
+
 conda activate st_train
 
 # Setting paths
 set -x
-CODE_DIR=/lustre/orion/chm155/proj-shared/$USER/IMPECCABLE_2.0/surrogate_training
-WORK_DIR=/lustre/orion/chm155/proj-shared/$USER/IMPECCABLE_2.0/workflow/step2
 MEM_ID=0
 MEM_DIR=$WORK_DIR/mem$MEM_ID
-mkdir -p $MEM_DIR2
+mkdir -p $MEM_DIR
 STEP1_DIR=$WORK_DIR/../step1/mem$MEM_ID
 
-# Setting runs
-cp -r $CODE_DIR/* $WORK_DIR/
-cd $MEM_DIR
-mkdir -p trainoutput
-#rm model.weights.h5
-
-cp $WORK_DIR/config_training.json $MEM_DIR
-
-sed -i "s@PLACEHOLDER_DIR/VocabFiles@${WORK_DIR}/VocabFiles@g" config_training.json
-sed -i "s/ 300,/ 10,/g" config_training.json
-python3 $WORK_DIR/preprocess.py -s $STEP1_DIR/scores -o trainoutput
-NNODES=1
-TASKS_PER_NODE=8
-
+set -x
 # Executing runs
 # srun -N ${NNODES} -n $((NNODES*TASKS_PER_NODE)) -S 0
 python3 $WORK_DIR/smiles_regress_transformer_run.py
