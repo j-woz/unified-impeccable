@@ -21,7 +21,7 @@ cd $THIS
 export SITE=frontier
 
 source $THIS/../impeccable-settings.sh
-source $THIS/sub_p1_s1-setup.sh
+source $THIS/sub_p1_s1-setup.sh oepython_new
 
 # Executing runs
 SRUN_ARGS=(

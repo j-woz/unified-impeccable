@@ -18,7 +18,7 @@ cd $THIS
 export SITE=frontier
 
 source $THIS/../impeccable-settings.sh
-source $THIS/sub_p1_s2-setup.sh
+source $THIS/sub_p1_s2-setup.sh oepython_new
 
 # Setting environments
 module reset

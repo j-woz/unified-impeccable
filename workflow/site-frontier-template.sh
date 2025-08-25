@@ -6,6 +6,8 @@
 # 2. Any Python settings so that the python in PATH is ready to run
 # 3. User settings including the IMPECCABLE clone and output directory
 
+CONDA_ENVIRONMENT=$1
+
 ## GENERAL SOFTWARE
 
 # OpenEye license
@@ -16,7 +18,7 @@ export OE_LICENSE=/ccs/proj/chm155/IMPECCABLE/High-Throughput-Docking/oe_license
 # These functions trigger errors:
 set +eu
 source /ccs/proj/chm155/IMPECCABLE/activate_conda.sh
-conda activate oepython_new
+conda activate $CONDA_ENVIRONMENT
 set -eu
 
 echo "setup-frontier.sh: python:" $( which python )

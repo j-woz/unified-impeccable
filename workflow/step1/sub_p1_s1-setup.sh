@@ -1,13 +1,14 @@
-#!/bin/bash
 
 # SUB P1 S1 SETUP
 # Portable application setup script
 # Assumes SITE, THIS in the environment
 # Sets WORK_DIR, MEM_DIR
 
-set -eu
+CONDA_ENVIRONMENT=$1
 
-source $THIS/../site-${SITE:-UNKNOWN}-settings.sh
+source $THIS/../site-${SITE:-UNKNOWN}-settings.sh $CONDA_ENVIRONMENT
+
+set -eu
 
 # Setting paths
 CODE_DIR=$IMPECCABLE_CODE/htp_docking
