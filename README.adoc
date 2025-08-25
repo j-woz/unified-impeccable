@@ -40,6 +40,9 @@ The code is copied here for execution
 `MEM_DIR`::
 A subdirectory of `WORK_DIR` for step data.  This is the `PWD` for the science code execution
 
+`THIS`::
+The directory containing the current script.  On Frontier/Slurm, this is found with a Slurm-specific variable.  On Aurora/PBS, we lookup the location of the current script with `dirname` and `realpath`.
+
 === Workflow-level scripts
 
 * `site-SITE-settings.sh`
