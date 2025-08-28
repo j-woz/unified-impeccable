@@ -14,6 +14,14 @@ export OE_LICENSE=/lus/flare/projects/workflow_scaling/wozniak/IMPECCABLE/oe_lic
 # For mpiexec:
 PATH=/opt/cray/pals/1.4/bin:$PATH
 
+# TODO!
+echo FIX THIS
+exit
+OPENEYE=/lustre/orion/chm155/proj-shared/openeye
+QUACPAC=/lustre/orion/chm155/proj-shared/openeye/arch/redhat-RHEL8-x64/quacpac
+PATH=$QUACPAC:$OPENEYE/bin:$PATH
+
+
 ## PYTHON SETTINGS
 
 if [[ ! -e /tmp/TF ]]

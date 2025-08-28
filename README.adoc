@@ -16,12 +16,17 @@ Code is `/surrogate_training`
 `sub_p1_s2`: - WALLTIME=1h
 +
 * Frontier: success in <10 minutes
-* Aurora:   success in <2 minutes
+* Aurora:   blocked on TF error- Archit looking at it
 
 Step 3: "Surrogate Inference"::
 Code is `/surrogate_inference`
 +
-`sub_p1_s3` - WALLTIME=1h - success in <5 minutes
+* Frontier: `sub_p1_s3` - WALLTIME=1h - success in <10 minutes
+
+Step 4a: "Pose Generation"::
+Code is `/pose_generation`
++
+* Frontier: `sub_p2_s4a` - WALLTIME=1h - success in <2 minutes
 
 == Script architecture
 

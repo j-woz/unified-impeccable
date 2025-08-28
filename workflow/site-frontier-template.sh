@@ -13,6 +13,11 @@ CONDA_ENVIRONMENT=$1
 # OpenEye license
 export OE_LICENSE=/ccs/proj/chm155/IMPECCABLE/High-Throughput-Docking/oe_license.txt
 
+# Other OpenEye tools:
+OPENEYE=/lustre/orion/chm155/proj-shared/openeye
+QUACPAC=/lustre/orion/chm155/proj-shared/openeye/arch/redhat-RHEL8-x64/quacpac
+PATH=$QUACPAC:$OPENEYE/bin:$PATH
+
 ## PYTHON SETTINGS
 
 # These functions trigger errors:
