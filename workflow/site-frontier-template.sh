@@ -1,5 +1,5 @@
 
-# SETUP Frontier
+# SITE FRONTIER SETTINGS
 # Software setup for Frontier
 # Should contain:
 # 1. General software settings (modules, schedulers, etc.)
@@ -18,12 +18,12 @@ export OE_LICENSE=/ccs/proj/chm155/IMPECCABLE/High-Throughput-Docking/oe_license
 # These functions trigger errors:
 set +eu
 source /ccs/proj/chm155/IMPECCABLE/activate_conda.sh
-echo "setup-frontier.sh: activating:" $CONDA_ENVIRONMENT
+echo "site-frontier-settings.sh: activating:" $CONDA_ENVIRONMENT
 conda activate $CONDA_ENVIRONMENT
 set -eu
 
-echo "setup-frontier.sh: python:" $( which python )
-echo "setup-frontier.sh: CONDA_PREFIX:" ${CONDA_PREFIX}
+echo "site-frontier-settings.sh: python:" $( which python )
+echo "site-frontier-settings.sh: CONDA_PREFIX:" ${CONDA_PREFIX}
 
 ## USER SETTINGS
 # Do not commit changes here to git: they are specific to the user
