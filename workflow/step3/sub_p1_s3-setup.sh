@@ -1,11 +1,10 @@
 
 # SUB P1 S3 SETUP
 # Portable setup script
-# Assumes SITE is in the environment
+# Assumes SITE, THIS are in the environment
 
 CONDA_ENVIRONMENT=$1
 
-THIS=$( realpath $( dirname $0 ) )
 source $THIS/../site-${SITE:-UNKNOWN}-settings.sh $CONDA_ENVIRONMENT
 
 CODE_DIR=$IMPECCABLE_CODE/surrogate_inference
