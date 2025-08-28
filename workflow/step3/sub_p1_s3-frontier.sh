@@ -5,7 +5,7 @@
 # Merge streams:
 #SBATCH -o %x-%j.out
 #SBATCH -e %x-%j.out
-#SBATCH -t 1:00:00
+#SBATCH -t 10:00
 #SBATCH -p batch
 #SBATCH -q debug
 #SBATCH -N 1
@@ -21,7 +21,6 @@ export SITE=frontier
 
 source $THIS/../impeccable-settings.sh
 source $THIS/sub_p1_s3-setup.sh st_mpi_base
-
 
 # Setting environments
 set +eu
