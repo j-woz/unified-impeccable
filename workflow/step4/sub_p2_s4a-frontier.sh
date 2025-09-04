@@ -24,6 +24,9 @@ source $THIS/sub_p2_s4a-setup.sh oepython_new
 TASKS_PER_NODE=32
 
 # Executing runs
-set -x
-srun -N ${NNODES} -n $((NNODES*TASKS_PER_NODE)) -S 0 --ntasks-per-node=64 python $WORK_DIR/docking_openeye_pose.py -s fixpka_compounds.smi -r $recep_file_dir/$recep_file -p $WORK_DIR/input/$protein_pdb -o output_combined_trajectories
+(
+  set -x
+  srun -N ${NNODES} --ntasks=$((NNODES*TASKS_PER_NODE)) -S 0 --ntasks-per-node=$TASKS_PER_NODE python $WORK_DIR/docking_openeye_pose.py -s fixpka_compounds.smi -r $recep_file_dir/$recep_file -p $WORK_DIR/input/$protein_pdb -o output_combined_trajectories
+)
 
+echo $0: OK
