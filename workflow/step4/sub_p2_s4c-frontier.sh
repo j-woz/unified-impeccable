@@ -31,9 +31,10 @@ export NAMDBIN=$NAMDBINDIR/$NAMDVER/namd3
 export namdargs=''
 
 # Executing runs
-set -eux
+set -eu
 for ((i=0; i < $N_COMPS; i++)); do
-	mkdir -p min/$i
+	printf "run: %3i/%3i\n" $i $N_COMPS
+	mkdir -pv min/$i
 	cd min/$i
 	sed "s/LIG/$i/g" $WORK_DIR/model-inputs/eq0.conf > eq0.conf
 	#sed -i "s/minimize 200/minimize 100/" eq0.conf
