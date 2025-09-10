@@ -1,6 +1,11 @@
 #!/bin/bash
+set -eu
+
+# P2 S5A PROCESS
+# Assumes WORK_DIR in the environment
+
 lig=$1
-WORK_DIR=/lustre/orion/chm155/proj-shared/apbhati/IMPECCABLE_2.0/DEBUG_RUN/step5
+
 MEM_ID=0
 ITER=0
 STEP4_DIR=$WORK_DIR/../step4/mem$MEM_ID/itr$ITER
