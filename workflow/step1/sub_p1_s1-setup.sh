@@ -1,3 +1,4 @@
+set -eu
 
 # SUB P1 S1 SETUP
 # Portable application setup script
@@ -6,9 +7,9 @@
 
 CONDA_ENVIRONMENT=$1
 
-source $THIS/../site-${SITE:-UNKNOWN}-settings.sh $CONDA_ENVIRONMENT
+source $WORKFLOW_DIR/utils.sh
 
-set -eu
+source $THIS/../site-${SITE:-UNKNOWN}-settings.sh $CONDA_ENVIRONMENT
 
 # Setting paths
 CODE_DIR=$IMPECCABLE_CODE/htp_docking
@@ -33,4 +34,3 @@ m4 -P $THIS/../common.m4 $THIS/config_htp.json > $MEM_DIR/config_htp.json
 
 NNODES=1
 TASKS_PER_NODE=64
-
