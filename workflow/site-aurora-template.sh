@@ -12,7 +12,7 @@
 export OE_LICENSE=/lus/flare/projects/workflow_scaling/wozniak/IMPECCABLE/oe_license.txt
 
 # For mpiexec:
-PATH=/opt/cray/pals/1.4/bin:$PATH
+PATH=/opt/cray/pals/1.8/bin:$PATH
 
 # TODO!
 echo FIX THIS
