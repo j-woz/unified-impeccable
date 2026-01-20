@@ -2,6 +2,8 @@
 # Per-user workflow settings- exported to M4 filter
 # Do not commit user changes to git!
 
+WORKFLOW_DIR=$( realpath $( dirname $BASH_SOURCE ) )
+
 # Location relative to WORK_DIR
 export SMILES_INPUT=input/Training.smi
 # Location relative to WORK_DIR
