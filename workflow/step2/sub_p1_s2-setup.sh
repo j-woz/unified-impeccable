@@ -5,8 +5,8 @@
 
 CONDA_ENVIRONMENT=$1
 
-THIS=$( realpath $( dirname $0 ) )
-source $THIS/../site-${SITE:-UNKNOWN}-settings.sh $CONDA_ENVIRONMENT
+source $WORKFLOW_DIR/utils.sh
+source $WORKFLOW_DIR/site-${SITE:-UNKNOWN}-settings.sh $CONDA_ENVIRONMENT
 
 # Setting paths
 CODE_DIR=$IMPECCABLE_CODE/surrogate_training

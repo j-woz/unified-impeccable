@@ -14,14 +14,13 @@
 
 set -eu
 
-THIS=$PBS_O_WORKDIR
+THIS=$( realpath $( dirname $0 ) )
 cd $THIS
 
 export SITE=aurora
 
-source $THIS/../setup-$SITE.sh
-source $THIS/../settings.sh
-source $THIS/sub_p1_s2-setup.sh
+source $THIS/../impeccable-settings.sh 
+source $THIS/sub_p1_s2-setup.sh base
 
 # source /ccs/proj/chm155/IMPECCABLE/activate_conda.sh
 # conda activate st_train
@@ -29,7 +28,7 @@ source $THIS/sub_p1_s2-setup.sh
 export TF_FORCE_GPU_ALLOW_GROWTH=true
 export MIOPEN_USER_DB_PATH=./miopen-cache
 export MIOPEN_CUSTOM_CACHE_DIR=$MIOPEN_USER_DB_PATH
-mkdir -p $MIOPEN_USER_DB_PATH
+mkdir -pv $MIOPEN_USER_DB_PATH
 
 # Executing runs
 set -x
