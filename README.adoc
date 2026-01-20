@@ -46,7 +46,7 @@ The code is copied here for execution
 A subdirectory of `WORK_DIR` for step data.  This is the `PWD` for the science code execution
 
 `THIS`::
-The directory containing the current script.  On Frontier/Slurm, this is found with a Slurm-specific variable.  On Aurora/PBS, we use `PBS_O_WORKDIR`
+The directory containing the current script.  On Frontier/Slurm, this is found with a Slurm-specific variable.  On Aurora/PBS, we can use `PBS_O_WORKDIR`.  But it is better to look this up for each run script for interactive cases where the user may `cd` from the original submit-time directory.
 
 `WORKFLOW_DIR`::
 The top-level directory `unified-impeccable/workflow`
