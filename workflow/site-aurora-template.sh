@@ -14,13 +14,9 @@ export OE_LICENSE=/lus/flare/projects/workflow_scaling/wozniak/IMPECCABLE/oe_lic
 # For mpiexec:
 PATH=/opt/cray/pals/1.8/bin:$PATH
 
-# TODO!
-echo FIX THIS
-exit
 OPENEYE=/lustre/orion/chm155/proj-shared/openeye
 QUACPAC=/lustre/orion/chm155/proj-shared/openeye/arch/redhat-RHEL8-x64/quacpac
 PATH=$QUACPAC:$OPENEYE/bin:$PATH
-
 
 ## PYTHON SETTINGS
 
@@ -43,8 +39,7 @@ echo "setup-aurora.sh: activating anaconda..."
 conda activate /tmp/TF
 set -eu
 
-echo "setup-aurora.sh: python:" $( which python )
-echo "setup-aurora.sh: CONDA_PREFIX:" ${CONDA_PREFIX}
+report_conda
 
 ## USER SETTINGS
 # Do not commit changes here to git: they are specific to the user
