@@ -20,14 +20,16 @@ cd $THIS
 
 export SITE=aurora
 
-source $THIS/../settings.sh
+source $THIS/../impeccable-settings.sh
 source $THIS/sub_p1_s1-setup.sh
 
 (
   set -x
   pwd -P
-  /usr/bin/time --format="TIME: %E" mpiexec -n 64 \
-        python $WORK_DIR/docking_openeye.py  # DB INSERT "sub_p1_s1/docking" OK;
+  /usr/bin/time --format="TIME: %E" \
+                mpiexec -n 64 \
+                python $WORK_DIR/docking_openeye.py
+  # DB INSERT "sub_p1_s1/docking" OK;
 )
 
 # Validating runs
