@@ -46,7 +46,10 @@ The code is copied here for execution
 A subdirectory of `WORK_DIR` for step data.  This is the `PWD` for the science code execution
 
 `THIS`::
-The directory containing the current script.  On Frontier/Slurm, this is found with a Slurm-specific variable.  On Aurora/PBS, we lookup the location of the current script with `dirname` and `realpath`.
+The directory containing the current script.  On Frontier/Slurm, this is found with a Slurm-specific variable.  On Aurora/PBS, we use `PBS_O_WORKDIR`
+
+`WORKFLOW_DIR`::
+The top-level directory `unified-impeccable/workflow`
 
 === Workflow-level scripts
 
@@ -96,11 +99,17 @@ You can point to this or make a copy.
 
 We call this `CONDA_ENVIRONMENT`.
 
-* step1: oepython_new 
+* step1: oepython_new
 * step2: st_train
 * step3: st_mpi_base
 
 This is specified for each step by `sub_pP_sN-SITE.sh` , which passes it into the `sub_pP_sN-setup.sh` script, which passes it to `site-SITE-settings.sh`, which activates that environment after loading Python for that site.
+
+=== Frontier
+
+=== Aurora
+
+Using Miniconda in $HOME due to Lustre situation.  ~wozniak/Public/sfw/Miniconda-312-IMPECC
 
 == TODO
 
