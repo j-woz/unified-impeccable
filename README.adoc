@@ -111,9 +111,20 @@ This is specified for each step by `sub_pP_sN-SITE.sh` , which passes it into th
 
 Using Miniconda in $HOME due to Lustre situation.  ~wozniak/Public/sfw/Miniconda-312-IMPECC
 
+==== Build the TF tarball
+
+===== For Step 2:
+
+. module load frameworks
+. conda clone
+. conda install horovod keras tensorflow ipython
+. pip install SmilesPE
+
 == TODO
 
 === Justin
+
+
 
 Insert DB commands
 
