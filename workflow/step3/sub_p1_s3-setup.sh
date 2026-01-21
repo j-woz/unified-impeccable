@@ -5,6 +5,7 @@
 
 CONDA_ENVIRONMENT=$1
 
+source $WORKFLOW_DIR/utils.sh
 source $THIS/../site-${SITE:-UNKNOWN}-settings.sh $CONDA_ENVIRONMENT
 
 CODE_DIR=$IMPECCABLE_CODE/surrogate_inference
@@ -23,6 +24,7 @@ mkdir -p output/$DATASET
 mkdir -p Sorting_all
 #rm -f model.weights.h5
 cp $WORK_DIR/config_inference.json $MEM_DIR
+sed -i "s@INFERENCE_DATA@$INFERENCE_DATA@g" config_inference.json
 sed -i "s/ZIN/$DATASET/g" config_inference.json
 sed -i "s@PLACEHOLDER_DIR/VocabFiles@${WORK_DIR}/VocabFiles@g" config_inference.json
 sed -i "s/ 400,/ 5,/g" config_inference.json
