@@ -22,9 +22,6 @@ export SITE=aurora
 source $THIS/../impeccable-settings.sh 
 source $THIS/sub_p1_s2-setup.sh base
 
-# source /ccs/proj/chm155/IMPECCABLE/activate_conda.sh
-# conda activate st_train
-
 export TF_FORCE_GPU_ALLOW_GROWTH=true
 export MIOPEN_USER_DB_PATH=./miopen-cache
 export MIOPEN_CUSTOM_CACHE_DIR=$MIOPEN_USER_DB_PATH
