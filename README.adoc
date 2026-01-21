@@ -16,17 +16,19 @@ Code is `/surrogate_training`
 `sub_p1_s2`: - WALLTIME=1h
 +
 * Frontier: success in <10 minutes
-* Aurora:   blocked on TF error- Archit looking at it
+* Aurora:   works now: 2026-01-20
 
 Step 3: "Surrogate Inference"::
 Code is `/surrogate_inference`
 +
 * Frontier: `sub_p1_s3` - WALLTIME=1h - success in <10 minutes
+* Aurora:   `sub_p1_s3` - WALLTIME=1h - success in <10 minutes
 
 Step 4a: "Pose Generation"::
 Code is `/pose_generation`
 +
 * Frontier: `sub_p2_s4a` - WALLTIME=1h - success in <2 minutes
+* Aurora:   `sub_p2_s4a` 
 
 == Script architecture
 
@@ -115,7 +117,9 @@ Using Miniconda in $HOME due to Lustre situation.  ~wozniak/Public/sfw/Miniconda
 
 ===== For Step 2:
 
-. module load frameworks
+. module load frameworks/2024.?? <- works
+..  module load frameworks/2025.0.0
+.. . module frameworks/2025.*.0 has a broken mpi4py
 . conda clone
 . conda install horovod keras tensorflow ipython
 . pip install SmilesPE
