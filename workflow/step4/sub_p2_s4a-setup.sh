@@ -4,6 +4,8 @@
 # Assumes SITE is in the environment
 
 CONDA_ENVIRONMENT=$1
+
+source $WORKFLOW_DIR/utils.sh
 source $THIS/../site-${SITE:-UNKNOWN}-settings.sh $CONDA_ENVIRONMENT
 
 CODE_DIR=$IMPECCABLE_CODE/pose_generation
