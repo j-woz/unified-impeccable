@@ -28,7 +28,9 @@ Step 4a: "Pose Generation"::
 Code is `/pose_generation`
 +
 * Frontier: `sub_p2_s4a` - WALLTIME=1h - success in <2 minutes
-* Aurora:   `sub_p2_s4a` 
+* Aurora:   `sub_p2_s4a` - success in <5 minutes
+
+Step 4b:
 
 == Script architecture
 
