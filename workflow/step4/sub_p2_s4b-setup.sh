@@ -2,6 +2,8 @@
 # SUB P2 S4B SETUP
 
 CONDA_ENVIRONMENT=$1
+
+source $WORKFLOW_DIR/utils.sh
 source $THIS/../site-${SITE:-UNKNOWN}-settings.sh $CONDA_ENVIRONMENT
 
 # Setting paths
