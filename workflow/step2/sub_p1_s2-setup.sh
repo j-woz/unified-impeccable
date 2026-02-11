@@ -3,10 +3,20 @@
 # Portable setup script
 # Assumes SITE is in the environment
 
-CONDA_ENVIRONMENT=$1
+if (( ${#*} != 2 ))
+then
+  echo "sub_p1_s2-setup: " \
+       "Provide CONDA_INSTALLATION CONDA_ENVIRONMENT!"
+  return 1
+fi
+
+CONDA_INSTALLATION=$1
+CONDA_ENVIRONMENT=$2
 
 source $WORKFLOW_DIR/utils.sh
-source $WORKFLOW_DIR/site-${SITE:-UNKNOWN}-settings.sh $CONDA_ENVIRONMENT
+
+source $THIS/../site-${SITE:-UNKNOWN}-settings.sh \
+       $CONDA_INSTALLATION $CONDA_ENVIRONMENT
 
 # Setting paths
 CODE_DIR=$IMPECCABLE_CODE/surrogate_training

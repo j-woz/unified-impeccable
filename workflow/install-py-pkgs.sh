@@ -11,10 +11,16 @@ CHANNELS=( -c conda-forge
          )
 
 # Installation steps123:
-PKGS_123=(
+PKGS_CONDA_123=(
   pydantic-settings
   openeye-toolkits
+  # 1
   rdkit
+  # 2
+  horovod keras tensorflow IPython
+)
+PKGS_PIP_123=(
+  SmilesPE
 )
 
 # Installation step4a:

@@ -19,8 +19,10 @@ cd $THIS
 
 export SITE=aurora
 
-source $THIS/../impeccable-settings.sh 
-source $THIS/sub_p1_s2-setup.sh base
+source $THIS/../impeccable-settings.sh
+source $THIS/sub_p1_s2-setup.sh \
+       /opt/aurora/25.190.0/oneapi/intel-conda-miniforge \
+       /tmp/PY-IMPECCABLE/steps123
 
 export TF_FORCE_GPU_ALLOW_GROWTH=true
 export MIOPEN_USER_DB_PATH=./miopen-cache
