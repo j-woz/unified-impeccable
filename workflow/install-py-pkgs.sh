@@ -9,10 +9,24 @@
 CHANNELS=( -c conda-forge
            -c openeye
          )
-PKGS=( pydantic-settings
+
+# Installation steps123:
+PKGS_123=(
+  pydantic-settings
+  openeye-toolkits
+  rdkit
+)
+
+# Installation step4a:
+PKGS_OPENEYE=( pydantic-settings
        openeye-toolkits
        # Step 4a:
        mdanalysis
      )
+# Installation step4b:
+# In a blank env:
+PKGS_AMBER=(
+  ambertools
+)
 
 conda install ${CHANNELS[@]} ${PKGS[@]}

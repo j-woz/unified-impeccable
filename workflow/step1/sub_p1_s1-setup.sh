@@ -5,11 +5,21 @@ set -eu
 # Assumes SITE, THIS in the environment
 # Sets WORK_DIR, MEM_DIR
 
-CONDA_ENVIRONMENT=$1
+if (( ${#*} != 2 ))
+then
+  echo "sub_p1_s1-setup: " \
+       "Provide CONDA_INSTALLATION CONDA_ENVIRONMENT!"
+  return 1
+fi
+
+
+CONDA_INSTALLATION=$1
+CONDA_ENVIRONMENT=$2
 
 source $WORKFLOW_DIR/utils.sh
 
-source $THIS/../site-${SITE:-UNKNOWN}-settings.sh $CONDA_ENVIRONMENT
+source $THIS/../site-${SITE:-UNKNOWN}-settings.sh \
+       $CONDA_INSTALLATION $CONDA_ENVIRONMENT
 
 # Setting paths
 CODE_DIR=$IMPECCABLE_CODE/htp_docking

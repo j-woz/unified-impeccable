@@ -21,7 +21,9 @@ cd $THIS
 export SITE=aurora
 
 source $THIS/../impeccable-settings.sh
-source $THIS/sub_p1_s1-setup.sh
+source $THIS/sub_p1_s1-setup.sh \
+       /opt/aurora/25.190.0/oneapi/intel-conda-miniforge \
+       /tmp/PY-IMPECCABLE/steps123
 
 (
   set -x
