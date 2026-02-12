@@ -12,7 +12,6 @@ then
   return 1
 fi
 
-
 CONDA_INSTALLATION=$1
 CONDA_ENVIRONMENT=$2
 
