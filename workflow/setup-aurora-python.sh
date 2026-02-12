@@ -4,7 +4,7 @@
 # Apply set +eu beforehand because conda.sh and module-load can have
 #               extraneous internal errors
 
-LABEL="site-aurora-settings"
+LABEL="setup-aurora-python"
 
 # Top-level directory under which are all conda environments
 CONDA_TARGET=/tmp/PY-IMPECCABLE
