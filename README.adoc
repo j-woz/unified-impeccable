@@ -13,7 +13,8 @@ Code is `/htp_docking`
 +
 * Frontier: success in <22 minutes
 * Aurora:   success in <?? minutes
-** Needs `module frameworks` plus `rdkit` : in environment `steps123`
+** Needs `module frameworks` plus `rdkit`
+** Uses environment `steps12`
 
 Step 2: "Surrogate Training"::
 Code is `/surrogate_training`
@@ -22,13 +23,19 @@ Code is `/surrogate_training`
 +
 * Frontier: success in <10 minutes
 * Aurora:   works now: 2026-01-20
-** Needs
+** Needs `module frameworks` plus `horovod keras tensorflow IPython` and
+   `pip SmilesPE` in
+** Uses environment `steps12`
 
 Step 3: "Surrogate Inference"::
 Code is `/surrogate_inference`
 +
 * Frontier: `sub_p1_s3` - WALLTIME=1h - success in <10 minutes
 * Aurora:   `sub_p1_s3` - WALLTIME=1h - success in <10 minutes
+** Revert to module `frameworks/2024.2.1_u1`
+** `conda install tensorflow keras mpi4py`
+** `pip install SmilesPE`
+** Ensure PALS `mpiexec`
 
 Step 4a: "Pose Generation"::
 Code is `/pose_generation`
@@ -175,3 +182,8 @@ PSI/J
 === Ketan
 
 Try step4
+
+== Troubleshooting
+
+MPI errors on Aurora::
+Be sure to load the appropriate `frameworks` module that matches the Python you are using.
