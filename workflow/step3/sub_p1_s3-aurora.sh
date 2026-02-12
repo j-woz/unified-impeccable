@@ -12,7 +12,7 @@
 #PBS -l nodes=1:ppn=64
 #PBS -l filesystems=home:flare
 
-set -eu
+
 
 THIS=$( realpath $( dirname $0 ) )
 cd $THIS
@@ -20,7 +20,22 @@ cd $THIS
 export SITE=aurora
 
 source $THIS/../impeccable-settings.sh
-source $THIS/sub_p1_s3-setup.sh base
+
+module load frameworks/2024.2.1_u1
+set -eu
+source $THIS/sub_p1_s3-setup.sh \
+       /opt/aurora/24.180.3/oneapi/intel-conda-miniforge \
+       /tmp/PY-IMPECCABLE/step3
+
+       # Roots:
+       # /opt/aurora/24.180.3/oneapi/intel-conda-miniforge
+       # /opt/aurora/25.190.0/oneapi/intel-conda-miniforge
+
+       # Environments:
+       # /tmp/frameworks-2024.2.1_2026-02-11
+       # /tmp/frameworks-2025.2.0_2026-02-11
+       # /tmp/frameworks-2024.180.3
+       # /tmp/PY-IMPECCABLE/steps123
 
 MPIEXEC_FLAGS=(
   -n  1 #  $((NNODES*TASKS_PER_NODE))
@@ -35,8 +50,10 @@ APP=(
 
 # Executing runs
 (
-  set -x
   PATH=/opt/cray/pals/1.8/bin:$PATH
+
+  set -x
+
   which mpiexec
   mpiexec ${MPIEXEC_FLAGS[@]} python ${APP[@]}
 )
