@@ -24,8 +24,13 @@ show()
 {
   for v in $*
   do
-    eval "echo ${LABEL:-}: $v=\${$v:-}"
+    eval "msg $v=\${$v:-}"
   done
+}
+
+msg()
+{
+  echo $( date "+%Y-%m-%d_%H:%M:%S" ) ${LABEL:-}: ${*}
 }
 
 log-path()
