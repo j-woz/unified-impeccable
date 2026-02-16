@@ -1,10 +1,12 @@
 
-# SETUP PYTHON AURORA
+# SETUP AURORA PYTHON
 # source this to setup Python on Aurora
 # Apply set +eu beforehand because conda.sh and module-load can have
 #               extraneous internal errors
 
 LABEL="setup-aurora-python"
+
+msg start ...
 
 # Top-level directory under which are all conda environments
 CONDA_TARGET=/tmp/PY-IMPECCABLE
@@ -14,12 +16,12 @@ ENVIRONMENT_TAR=~/W/wozniak/conda-tgz/PY-IMPECCABLE.tar
 
 if [[ ! -e $CONDA_TARGET ]]
 then
-  echo "$LABEL: extracting $ENVIRONMENT_TAR ..."
+  msg "extracting $ENVIRONMENT_TAR ..."
   if command time --format="TIME: %E" tar xf $ENVIRONMENT_TAR -C /tmp
   then
-    echo "$LABEL: extracted."
+    msg "extracted."
   else
-    echo "$LABEL: extraction failed!"
+    msg "extraction failed!"
     return 1
   fi
 fi
