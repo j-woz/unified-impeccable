@@ -30,7 +30,7 @@ show()
 
 msg()
 {
-  echo $( date "+%Y-%m-%d_%H:%M:%S" ) ${LABEL:-}: ${*}
+  echo $( date "+%Y-%m-%d %H:%M:%S" ) ${LABEL:-}: ${*}
 }
 
 log-path()
@@ -55,15 +55,15 @@ report-conda()
 {
   if ! which python 2>&1 > /dev/null
   then
-    echo "$LABEL: no python in PATH!"
+    msg "no python in PATH!"
     return 1
   fi
   if [[ ${CONDA_PREFIX:-0} == 0 ]]
   then
-    echo "$LABEL: no CONDA_PREFIX: set up Anaconda"
+    msg "no CONDA_PREFIX: set up Anaconda"
     return 1
   fi
-  echo "$LABEL: python:     "   $( which python )
+  msg      "python:     "   $( which python )
   show     CONDA_PREFIX PYTHONUSERBASE
   log-path PYTHONPATH
 }
