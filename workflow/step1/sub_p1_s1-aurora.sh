@@ -13,20 +13,26 @@
 #PBS -l nodes=1:ppn=64
 #PBS -l filesystems=home:flare
 
-set -eu
 
-THIS=$PBS_O_WORKDIR
+THIS=$( realpath $( dirname $0 ) )
 cd $THIS
 
 export SITE=aurora
 
+module load frameworks/2024.2.1_u1
+
+set -eu
 source $THIS/../impeccable-settings.sh
+
 source $THIS/sub_p1_s1-setup.sh \
-       /opt/aurora/25.190.0/oneapi/intel-conda-miniforge \
+       /opt/aurora/24.180.3/oneapi/intel-conda-miniforge \
        /tmp/PY-IMPECCABLE/steps123
+#        /opt/aurora/25.190.0/oneapi/intel-conda-miniforge \
+#
 
 (
   set -x
+  which mpiexec
   pwd -P
   /usr/bin/time --format="TIME: %E" \
                 mpiexec -n 64 \
@@ -36,11 +42,12 @@ source $THIS/sub_p1_s1-setup.sh \
 
 # Validating runs
 (
+  VALIDATE_ARGS=( -s $MEM_DIR/scores -c config_htp.json )
+
   set -x
 
   cd $MEM_DIR
   pwd -P
-  VALIDATE_ARGS=( -s $MEM_DIR/scores -c config_htp.json )
   /usr/bin/time --format="TIME: %E" \
                 python $WORK_DIR/validate_1.py ${VALIDATE_ARGS[@]}
   # DB INSERT "sub_p1_s1/validate" OK;

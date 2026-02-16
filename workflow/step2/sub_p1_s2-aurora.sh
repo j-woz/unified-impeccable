@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# SUB P1 S1 AURORA
+# SUB P1 S2 AURORA
 
 #PBS -A workflow_scaling
 #PBS -N p1_s2
@@ -21,7 +21,7 @@ export SITE=aurora
 
 source $THIS/../impeccable-settings.sh
 source $THIS/sub_p1_s2-setup.sh \
-       /opt/aurora/25.190.0/oneapi/intel-conda-miniforge \
+       /opt/aurora/24.180.3/oneapi/intel-conda-miniforge \
        /tmp/PY-IMPECCABLE/steps123
 
 export TF_FORCE_GPU_ALLOW_GROWTH=true

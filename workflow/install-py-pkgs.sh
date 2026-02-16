@@ -10,7 +10,8 @@ CHANNELS=( -c conda-forge
            -c openeye
          )
 
-# Installation steps123:
+# Installation steps12:
+# try module frameworks/2024.2.1_u1 in /opt/aurora/24.180.3
 PKGS_CONDA_123=(
   pydantic-settings
   openeye-toolkits
@@ -18,19 +19,20 @@ PKGS_CONDA_123=(
   rdkit
   # 2
   horovod keras tensorflow IPython
+  # 3
+  mpi4py
 )
-PKGS_PIP_123=(
-  SmilesPE
-)
+PKGS_PIP_123=( SmilesPE )
 
 # Installation step4a:
-PKGS_OPENEYE=( pydantic-settings
-       openeye-toolkits
-       # Step 4a:
-       mdanalysis
-     )
+PKGS_OPENEYE=(
+  pydantic-settings
+  openeye-toolkits
+  # Step 4a:
+  mdanalysis
+)
 # Installation step4b:
-# In a blank env:
+# Works with all in frameworks/2024
 PKGS_AMBER=(
   ambertools
 )

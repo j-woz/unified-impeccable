@@ -20,7 +20,9 @@ cd $THIS
 export SITE=aurora
 
 source $THIS/../impeccable-settings.sh
-source $THIS/sub_p2_s4a-setup.sh oepython_new
+source $THIS/sub_p2_s4a-setup.sh \
+       /opt/aurora/24.180.3/oneapi/intel-conda-miniforge \
+       /tmp/PY-IMPECCABLE/steps123
 
 # TMP CHANGE!
 TASKS_PER_NODE=32
