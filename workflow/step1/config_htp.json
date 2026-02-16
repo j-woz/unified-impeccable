@@ -1,5 +1,5 @@
 m4_comment(
-  See impeccable-settings.sh for variable descriptions
+  See impeccable-{template,settings}.sh for variable descriptions
 )
 {
 "smiles_input": "m4_getenv(WORK_DIR)/m4_getenv(SMILES_INPUT)",
