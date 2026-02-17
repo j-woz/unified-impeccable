@@ -14,6 +14,7 @@ Code is `/htp_docking`
 +
 `sub_p1_s1`: WALLTIME=20m
 +
+* Single big mpi4py run...
 * Frontier: success in <22 minutes
 * Aurora:   success in <?? minutes
 ** Needs `module frameworks/2024` plus `rdkit`
@@ -24,6 +25,7 @@ Code is `/surrogate_training`
 +
 `sub_p1_s2`: - WALLTIME=1h
 +
+* MPI layout TOTALLY DIFFERENT?
 * Frontier: success in <10 minutes
 * Aurora:   works now: 2026-01-20
 ** Needs `module frameworks/2024` plus `horovod keras tensorflow IPython` and
@@ -51,11 +53,21 @@ Code is `/pose_generation`
 
 Step 4b: "Amber"::
 ** Needs `module frameworks/2024`
-** `conda install ambertools`
+** `conda install ambertools` (mmpbsa.py) (mmpbsa.py.MPI)
 ** Can merge with environment steps123
 
+Step 4c: "NAMD"::
+* Waiting for Wei
+
+Step 4d: "MMPBSA"::
+* Same ambertools environment, mmpbsa.py
 
 
+Step 5: ::
+* Same ambertools and NAMD environments
+
+Step 6: "REINVENT"::
+* conda ? reinvent
 
 == Script architecture
 

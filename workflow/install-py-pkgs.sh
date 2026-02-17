@@ -38,3 +38,17 @@ PKGS_AMBER=(
 )
 
 conda install ${CHANNELS[@]} ${PKGS[@]}
+
+# REINVENT
+# Needs its own environment, conflicts with learning libraries
+git clone git@github.com:MolecularAI/REINVENT4.git
+conda create --yes -p /tmp/PY-IMPECCABLE/step6
+conda activate /tmp/PY-IMPECCABLE/step6
+cd REINVENT4
+# Approach 1: Works but installs to ~/.local
+python install.py cpu
+PATH=$HOME/.local/aurora/frameworks/2024.2.1_u1/bin:$PATH
+# Approach 2: Works
+python3 -m venv /tmp/PY-IMPECCABLE/step6/venv_reinvent --system-site-packages
+source /tmp/PY-IMPECCABLE/step6/venv_reinvent/bin/activate
+python install.py cpu
