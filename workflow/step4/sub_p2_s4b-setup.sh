@@ -3,7 +3,7 @@
 
 if (( ${#*} != 2 ))
 then
-  echo "sub_p2_s4-setup: " \
+  echo "sub_p2_s4b-setup: " \
        "Provide CONDA_INSTALLATION CONDA_ENVIRONMENT!"
   return 1
 fi

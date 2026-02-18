@@ -5,7 +5,7 @@
 #PBS -A workflow_scaling
 #PBS -N p2_s4a
 # Merge streams:
-#PBS -o sub_p2_s4.out
+#PBS -o sub_p2_s4a.out
 #PBS -j oe
 #PBS -l walltime=0:05:00
 #PBS -q debug

@@ -3,7 +3,7 @@
 #PBS -A workflow_scaling
 #PBS -N p2_s4a
 # Merge streams:
-#PBS -o sub_p2_s4.out
+#PBS -o sub_p2_s4b.out
 #PBS -j oe
 #PBS -l walltime=0:05:00
 #PBS -q debug
@@ -25,8 +25,6 @@ set -eu
 
 THIS=$( realpath $( dirname $0 ) )
 cd $THIS
-
-export SITE=aurora
 
 export SITE=aurora
 

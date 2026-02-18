@@ -38,7 +38,6 @@ mkdir -p lig_confs
 mkdir -p scores
 mkdir -p temp
 comp_file=$STEP3_DIR/sorted_data.csv # STEP6_DIR/reinvent.csv for p3
-N_COMPS=50
 #POSES=100 # hard-coded as "max_confs=100": add as an argument
 col_id=1 # col_id=5 for p3
 recep_file_dir=$WORK_DIR/../step1/input
