@@ -67,3 +67,9 @@ report-conda()
   show     CONDA_PREFIX PYTHONUSERBASE
   log-path PYTHONPATH
 }
+
+tm()
+# Assumes LABEL is a global
+{
+  /usr/bin/time --format="$LABEL: TIME: %E" ${*}
+}
