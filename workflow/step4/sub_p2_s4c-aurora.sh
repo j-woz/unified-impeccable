@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# SUB P1 S1 AURORA
+# SUB P2 S4C AURORA
 
 #PBS -A workflow_scaling
 #PBS -N p2_s4c
