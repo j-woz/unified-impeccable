@@ -13,3 +13,6 @@ export INFERENCE_DATA=/lustre/orion/chm155/proj-shared/avasan/InferenceData
 export DATASET=BDB
 # Number of samples.  Reduce for shorter workflow.
 export SAMPLE_SIZE=1000
+
+# Used for Step 4+...
+N_COMPS=50
