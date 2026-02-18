@@ -1,8 +1,15 @@
 
 # SUB P2 S4C SETUP
 
-CONDA_ENVIRONMENT=$1
-source $THIS/../site-${SITE:-UNKNOWN}-settings.sh $CONDA_ENVIRONMENT
+if (( ${#*} != 0 ))
+then
+  echo "sub_p2_s4c-setup: Provide no arguments!"
+  return 1
+fi
+
+source $WORKFLOW_DIR/utils.sh
+
+source $THIS/../site-${SITE:-UNKNOWN}-settings.sh - -
 
 export WORK_DIR=$WORK_TOP/step4
 MEM_ID=0
@@ -13,4 +20,3 @@ mkdir -pv $ITR_DIR
 
 # Setting runs
 cd $ITR_DIR
-N_COMPS=50
