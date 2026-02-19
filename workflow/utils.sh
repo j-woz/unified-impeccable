@@ -18,6 +18,51 @@ bak()
   fi
 }
 
+bac()
+# Copy given file to numbered backup
+# If file does not exist, nothing to backup, no problem.
+{
+  if (( ${#} != 1 ))
+  then
+    echo "bac(): provide FILE!"
+    return 1
+  fi
+  if [[ -e $FILE ]]
+  then
+    cp -v --backup=numbered --no-target-directory $FILE $FILE.bac
+  fi
+}
+
+assert-exists()
+# Test for file/directory existence
+# Intersperse file names with -v for verbose, +v for silent (default)
+# or test flags -e/-f/-d etc. (default -e)
+{
+  local MODE="-e" t
+  local VERBOSE=0
+  for t in ${*}
+  do
+    case $t in
+      -v) VERBOSE=1
+          continue ;;
+      +v) VERBOSE=0
+          continue ;;
+      -*) MODE=${t}
+          continue ;;
+    esac
+    if (( VERBOSE ))
+    then
+      echo test $MODE $t
+    fi
+    if ! test $MODE $t
+    then
+      msg "assert-exists: FAIL: [test $MODE] $t"
+      msg "assert-exists: PWD: " $( pwd -P )
+      return 1
+    fi
+  done
+}
+
 show()
 # Report variable names with their values
 # Assumes LABEL is a global
@@ -29,8 +74,23 @@ show()
 }
 
 msg()
+# MeSsaGe
 {
   echo $( date "+%Y-%m-%d %H:%M:%S" ) ${LABEL:-}: ${*}
+}
+
+msgf()
+# MeSsaGe - Formatted
+{
+  local T
+  printf -v T ${*}
+  msg ${T}
+}
+
+fail()
+{
+  msg ${*}
+  return 1
 }
 
 log-path()
