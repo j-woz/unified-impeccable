@@ -35,8 +35,6 @@ source $THIS/sub_p2_s5a-setup.sh \
        /opt/aurora/24.180.3/oneapi/intel-conda-miniforge \
        /tmp/PY-IMPECCABLE/steps123
 
-N_COMPS=1
-
 # Executing runs
 cd $ITR_DIR
 #l=0
