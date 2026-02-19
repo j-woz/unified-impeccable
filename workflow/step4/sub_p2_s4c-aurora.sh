@@ -42,12 +42,12 @@ export namdargs=''
 
 export ZE_FLAT_DEVICE_HIERARCHY=FLAT
 
-LABEL="S4C:NAMD"
+LABEL="S4C"
 
 # Executing runs
 for ((i=0; i < $N_COMPS; i++))
 do
-  printf "run: %3i/%3i\n" $i $N_COMPS
+  msgf "run: %3i/%3i\n" $i $N_COMPS
   pwd
   mkdir -pv min/$i
   cd min/$i
