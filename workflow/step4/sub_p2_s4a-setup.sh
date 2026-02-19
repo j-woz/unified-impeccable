@@ -30,7 +30,7 @@ mkdir -p $ITR_DIR
 STEP3_DIR=$WORK_DIR/../step3/mem$MEM_ID
 
 # Setting runs
-cp -r $CODE_DIR/* $WORK_DIR/
+cp -ru $CODE_DIR/* $WORK_DIR/
 cd $ITR_DIR
 mkdir -p output_combined_trajectories/dcds
 mkdir -p output_combined_trajectories/pdbs
