@@ -1,8 +1,21 @@
 
-CONDA_ENVIRONMENT=$1
-source $THIS/../site-${SITE:-UNKNOWN}-settings.sh $CONDA_ENVIRONMENT
+# SUB P2 S5A SETUP
 
-export WORK_DIR=$WORK_TOP/step4
+source $WORKFLOW_DIR/utils.sh
+
+LABEL="sub_p2_s5a-setup"
+if (( ${#*} != 2 ))
+then
+  fail "Provide CONDA_INSTALLATION CONDA_ENVIRONMENT!"
+fi
+
+CONDA_INSTALLATION=$1
+CONDA_ENVIRONMENT=$2
+
+source $THIS/../site-${SITE:-UNKNOWN}-settings.sh \
+       $CONDA_INSTALLATION $CONDA_ENVIRONMENT
+
+export WORK_DIR=$WORK_TOP/step5
 
 # Setting paths
 CODE_DIR=$IMPECCABLE_CODE/esmacs
