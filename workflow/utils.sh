@@ -93,6 +93,22 @@ fail()
   return 1
 }
 
+function @ ()
+# Verbose command execution
+# Like set -x or output from Makefile
+{
+  msg ${*}
+  if ${*}
+  then
+    : OK
+  else
+    CODE=${?}
+    echo
+    msg "@ COMMAND ERROR: CODE=$CODE"
+    return $CODE
+  fi
+}
+
 log-path()
 # Pretty print a colon-separated variable, one entry per line
 # Provide the name of the variable (no dollar sign)
@@ -132,4 +148,50 @@ tm()
 # Assumes LABEL is a global
 {
   /usr/bin/time --format="$LABEL: TIME: %E" ${*}
+}
+
+namd-catch()
+# Catches spurious NAMD shutdown-time error
+{
+  if [[ ${NAMD:-} == "" ]] || (( ${#} != 2 ))
+  then
+    echo "namd-catch(): Set NAMD, provide CFG and LOG!"
+    return 1
+  fi
+  local CFG=$1
+  local LOG=$2
+
+  # Start with fresh log:
+  bak $LOG
+
+  # Run NAMD!
+  if @ $NAMD --tclmain $CFG +stdout $LOG
+  then
+    msg "NAMD success."
+  else
+    # Allow crashes if log indicates success:
+    if grep -q "End of program" $LOG
+    then
+      msg "NAMD success after error."
+    else
+      msg "NAMD ERROR: log is not complete!"
+      msg "NAMD ERROR: LOG: $LOG"
+      exit 1
+    fi
+  fi
+}
+
+namd-margin-0()
+# Insert "margin 0.0" for CUDA stability : from Wei Jiang (ALCF)
+{
+  if (( ${#} != 1 ))
+  then
+    echo "namd-margin-0(): Provide CFG!"
+    return 1
+  fi
+  local CFG=$1
+  if ! grep -q "margin 0.0" $CFG
+  then
+    sed -i "/run/imargin 0.0" $CFG
+  fi
 }
