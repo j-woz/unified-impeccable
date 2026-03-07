@@ -2,13 +2,13 @@
 set -eu
 
 # SUBMIT AURORA
+# THIS DOES NOT WORK WITH IMPECC-JOB
 
 THIS=$( dirname $0 )
-# cd to THIS to for correct PBS_O_WORKDIR
 cd $THIS
+export WORKFLOW_STEP=$( realpath $PWD )
 
 source ../utils.sh
-bak sub_p1_s1.out
 
 set -x
-qsub sub_p1_s1-aurora.sh
+impecc-job qsub sub_p1_s1-aurora.sh job-settings.sh

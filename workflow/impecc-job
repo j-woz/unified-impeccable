@@ -1,0 +1,55 @@
+#!/bin/bash
+set -eu
+
+# IMPECC-JOB
+
+THIS=$( dirname $0 )
+LABEL="impecc-job"
+
+source $THIS/utils.sh
+
+if (( ${#} != 3 ))
+then
+  fail "provide SUBMITTER SCRIPT SETTINGS"
+fi
+SUBMITTER=$1
+SCRIPT_SH=$2
+SETTINGS=$3
+
+assert-program $SUBMITTER
+assert-exist $SCRIPT_SH $SETTINGS
+
+# Provide defaults:
+: ${NODES:=1} ${WALLTIME:=00:05:00} ${QUEUE:=debug}
+
+# Source settings to override defaults:
+msg "sourcing:" $SETTINGS
+source $SETTINGS
+
+# There is no default NAME:
+if [[ ${NAME:-UNSET} == "UNSET" ]]
+then
+  fail "settings did not set NAME!"
+fi
+
+SCRIPT=${SCRIPT_SH%.sh}
+
+export WORKFLOW_STEP=$( realpath $( dirname $SCRIPT ) )
+
+SUBMIT_SH=$( mktemp --suffix .sh ${SCRIPT}_job-XXX )
+# Construct output file name:
+export OUTPUT=${SUBMIT_SH/.sh/.txt}
+
+{
+  echo "#!/bin/bash"
+  echo "# JOB: NAME:" $NAME
+  echo "# JOB: FILE:" $( basename $SCRIPT_SH )
+  echo "# JOB: DATE:" $( date "+%Y-%m-%d %H:%M" )
+  echo
+} > $SUBMIT_SH
+
+msg "writing: " $SUBMIT_SH
+m4 -P $THIS/common.m4 $SCRIPT_SH >> $SUBMIT_SH
+
+set -x
+$SUBMITTER $SUBMIT_SH

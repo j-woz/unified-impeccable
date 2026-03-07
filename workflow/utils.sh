@@ -33,7 +33,7 @@ bac()
   fi
 }
 
-assert-exists()
+assert-exist()
 # Test for file/directory existence
 # Intersperse file names with -v for verbose, +v for silent (default)
 # or test flags -e/-f/-d etc. (default -e)
@@ -56,8 +56,22 @@ assert-exists()
     fi
     if ! test $MODE $t
     then
-      msg "assert-exists: FAIL: [test $MODE] $t"
-      msg "assert-exists: PWD: " $( pwd -P )
+      msg "assert-exist: FAIL: [test $MODE] $t"
+      msg "assert-exist: PWD: " $( pwd -P )
+      return 1
+    fi
+  done
+}
+
+assert-program()
+{
+  local t
+  for t in ${*}
+  do
+    if ! which $t > /dev/null 2>&1
+    then
+      msg "assert-program: not found:" $t
+      log-path PATH
       return 1
     fi
   done
@@ -76,7 +90,7 @@ show()
 msg()
 # MeSsaGe
 {
-  echo $( date "+%Y-%m-%d %H:%M:%S" ) ${LABEL:-}: ${*}
+  echo $( date "+%Y-%m-%d %H:%M:%S" ) ${LABEL:-}: "${*}"
 }
 
 msgf()

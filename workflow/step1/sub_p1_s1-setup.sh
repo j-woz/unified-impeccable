@@ -1,8 +1,8 @@
-set -eu
 
 # SUB P1 S1 SETUP
 # Portable application setup script
-# Assumes SITE, THIS in the environment
+# Turns on set -eu at the end
+# Assumes SITE, WORKFLOW_STEP in the environment
 # Sets WORK_DIR, MEM_DIR
 
 if (( ${#*} != 2 ))
@@ -17,8 +17,10 @@ CONDA_ENVIRONMENT=$2
 
 source $WORKFLOW_DIR/utils.sh
 
-source $THIS/../site-${SITE:-UNKNOWN}-settings.sh \
+source $WORKFLOW_STEP/../site-${SITE:-UNKNOWN}-settings.sh \
        $CONDA_INSTALLATION $CONDA_ENVIRONMENT
+
+set -eu
 
 # Setting paths
 CODE_DIR=$IMPECCABLE_CODE/htp_docking
@@ -39,7 +41,8 @@ echo "sub_p1_s1-setup: MEM_DIR:    " $MEM_DIR
 echo "sub_p1_s1-setup: m4 writing: " $MEM_DIR/config_htp.json
 # m4 -P /lustre/orion/chm155/proj-shared/ketan2/unified-impeccable/workflow/common.m4 /lustre/orion/chm155/proj-shared/ketan2/unified-impeccable/workflow/step1/config_htp.json > $MEM_DIR/config_htp.json
 
-m4 -P $THIS/../common.m4 $THIS/config_htp.json > $MEM_DIR/config_htp.json
+m4 -P $WORKFLOW_DIR/common.m4 $WORKFLOW_STEP/config_htp.json > \
+   $MEM_DIR/config_htp.json
 
 NNODES=1
 TASKS_PER_NODE=64

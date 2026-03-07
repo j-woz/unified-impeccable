@@ -1,1 +1,5 @@
 *.log
+# Generated job scripts
+*_job-*.sh
+# Output logs
+*_job-*.txt

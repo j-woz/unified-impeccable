@@ -16,3 +16,4 @@ export SAMPLE_SIZE=1000
 
 # Used for Step 4+...
 N_COMPS=50
+n_replicas=4

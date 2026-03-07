@@ -1,0 +1,3 @@
+#!/bin/sh
+# Report date without trailing newline
+echo -n $( date "+%Y-%m-%d %H:%M" )
