@@ -150,37 +150,33 @@ This is specified for each step by `sub_pP_sN-SITE.sh` , which passes it into th
 
 === Aurora
 
-Using Miniconda in $HOME due to Lustre situation.  ~wozniak/Public/sfw/Miniconda-312-IMPECC
-
-No: Building `PY-IMPECCABLE.tar`
+Building `PY-IMPECCABLE.tar`
 
 See `workflow/install-py-pkgs.sh`
 
 Installs to `P=/tmp/PY-IMPECCABLE`
 with subdirectories:
 
-`$P/step123`::
-`frameworks` plus `pydantic-settings openeye-toolkits`
+`$P/step1`::
+`frameworks` plus `pydantic-settings openeye-toolkits rdkit`
 
-`$P/plain`::
-An initial plain Miniconda 3.12 for cloning
+`$P/step2`::
+`tensorflow` plus `pandas`
 
-`$P/step4a`::
-Python 3.13 plus `mdanalysis`
+`$P/step2`::
+`frameworks` plus REINVENT
 
-`$P/step4b`::
-Python 3.13 `ambertools`
+==== Wozniak notes
 
-==== Build the TF tarball
+To build the tarball:
 
-===== For Step 2:
-
-. module load frameworks/2024.?? <- works
-..  module load frameworks/2025.0.0
-.. . module frameworks/2025.*.0 has a broken mpi4py
-. conda clone
-. conda install horovod keras tensorflow ipython
-. pip install SmilesPE
+----
+$ E=$CONDA_PREFIX
+$ P=/tmp/PY-IMPECCABLE
+$ conda-clone
+$ workflow/install-py-pkgs.sh
+$ tcf -fZ -C /tmp ~/W/wozniak/conda-tgz/PY-IMPECCABLE.tar PY-IMPECCABLE
+----
 
 == TODO
 

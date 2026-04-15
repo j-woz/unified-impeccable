@@ -36,9 +36,14 @@ SCRIPT=${SCRIPT_SH%.sh}
 
 export WORKFLOW_STEP=$( realpath $( dirname $SCRIPT ) )
 
-SUBMIT_SH=$( mktemp --suffix .sh ${SCRIPT}_job-XXX )
+mkdir -pv $IMPECCABLE_WORK
+SUBMIT_SH=$( mktemp --suffix .sh $IMPECCABLE_WORK/${SCRIPT}_job-XXX )
 # Construct output file name:
 export OUTPUT=${SUBMIT_SH/.sh/.txt}
+
+msg "writing: " $SUBMIT_SH
+# Check for permission errors:
+touch $SUBMIT_SH
 
 {
   echo "#!/bin/bash"
@@ -48,7 +53,6 @@ export OUTPUT=${SUBMIT_SH/.sh/.txt}
   echo
 } > $SUBMIT_SH
 
-msg "writing: " $SUBMIT_SH
 m4 -P $THIS/common.m4 $SCRIPT_SH >> $SUBMIT_SH
 
 set -x

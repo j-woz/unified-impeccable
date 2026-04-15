@@ -80,9 +80,25 @@ assert-program()
 show()
 # Report variable names with their values
 # Assumes LABEL is a global
+# Provide -c to check that variable is set
 {
+  local v CHECK=0
   for v in $*
   do
+    if [[ $v == "-c" ]]
+    then
+      CHECK=1
+      continue
+    fi
+    if [[ ${!v:-_SHOW_UNSET} == "_SHOW_UNSET" ]]
+    then
+      if (( CHECK ))
+      then
+        fail "variable $v is not set"
+        # The above should return under set -e , but if not:
+        return 1
+      fi
+    fi
     eval "msg $v=\${$v:-}"
   done
 }
@@ -107,19 +123,38 @@ fail()
   return 1
 }
 
+crash()
+{
+  msg "CRASH:" ${*}
+  exit 1
+}
+
 function @ ()
 # Verbose command execution
 # Like set -x or output from Makefile
+# Provide -e to exit on error instead of return
 {
+  local EXIT=0
+  if [[ $1 == "-e" ]]
+  then
+    EXIT=1
+    shift
+  fi
   msg ${*}
   if ${*}
   then
     : OK
   else
+    # Error handling:
     CODE=${?}
     echo
     msg "@ COMMAND ERROR: CODE=$CODE"
-    return $CODE
+    if (( EXIT ))
+    then
+      exit $CODE
+    else
+      return $CODE
+    fi
   fi
 }
 
@@ -161,7 +196,7 @@ report-conda()
 tm()
 # Assumes LABEL is a global
 {
-  /usr/bin/time --format="$LABEL: TIME: %E" ${*}
+  /usr/bin/time --format="$LABEL: TIME: %E [ %e s ]" ${*}
 }
 
 namd-catch()

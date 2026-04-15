@@ -11,13 +11,15 @@ msg start ...
 # Top-level directory under which are all conda environments
 CONDA_TARGET=/tmp/PY-IMPECCABLE
 
-# ENVIRONMENT_TAR=/lus/flare/projects/candle_aesp_CNDA/sfw/TF.tar
-ENVIRONMENT_TAR=~/W/wozniak/conda-tgz/PY-IMPECCABLE.tar
+ENVIRONMENT_TAR=~/W/wozniak/conda-tar/PY-IMPECCABLE.tar
 
 if [[ ! -e $CONDA_TARGET ]]
 then
+  show -c NODES
   msg "extracting $ENVIRONMENT_TAR ..."
-  if command time --format="TIME: %E" tar xf $ENVIRONMENT_TAR -C /tmp
+  if command time --format="TIME: %E"       \
+             mpiexec -n $NODES --ppn 1      \
+             tar xf $ENVIRONMENT_TAR -C /tmp
   then
     msg "extracted."
   else

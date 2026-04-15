@@ -15,7 +15,7 @@ CONDA_ENVIRONMENT=$2
 
 source $WORKFLOW_DIR/utils.sh
 
-source $THIS/../site-${SITE:-UNKNOWN}-settings.sh \
+source $WORKFLOW_STEP/../site-${SITE:-UNKNOWN}-settings.sh \
        $CONDA_INSTALLATION $CONDA_ENVIRONMENT
 
 # Setting paths
@@ -35,7 +35,8 @@ mkdir -p trainoutput
 cp -v $WORK_DIR/config_training.json .
 
 sed -i "s@PLACEHOLDER_DIR/VocabFiles@${WORK_DIR}/VocabFiles@g" config_training.json
-sed -i "s/ 300,/ 10,/g" config_training.json
+# Substitute number of epochs
+sed -i "s/ 300,/ 5,/g" config_training.json
 (
   set -x
   python $WORK_DIR/preprocess.py -s $STEP1_DIR/scores -o trainoutput
