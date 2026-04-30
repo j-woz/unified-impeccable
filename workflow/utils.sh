@@ -175,9 +175,10 @@ log-path()
   fi
 }
 
-report-conda()
+report-py-settings()
 # Assumes LABEL is a global
 {
+  msg "report-py-settings() ..."
   if ! which python 2>&1 > /dev/null
   then
     msg "no python in PATH!"
@@ -185,12 +186,13 @@ report-conda()
   fi
   if [[ ${CONDA_PREFIX:-0} == 0 ]]
   then
-    msg "no CONDA_PREFIX: set up Anaconda"
+    msg "no CONDA_PREFIX: set up Anaconda!"
     return 1
   fi
   msg      "python:     "   $( which python )
   show     CONDA_PREFIX PYTHONUSERBASE
   log-path PYTHONPATH
+  msg "report-py-settings() done."
 }
 
 tm()
