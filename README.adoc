@@ -183,13 +183,13 @@ impecc-job LAUNCHER STEP_SCRIPT SETTINGS
 where:
 
 `LAUNCHER`::
-`bash` for interactive or `qsub` or `srun` to submit.
+`bash` for interactive, or `qsub` or `srun` to submit.
 
 `STEP_SCRIPT`::
 The step script itself.
 
 `SETTINGS`::
-The job settings script which contains node counts and other system configuration information for the scheduler and compute hardware.  Conventionally called `job-settings.sh`.  Examples of these for each step are in git.
+The job settings script which contains node counts and other system configuration information for the scheduler and compute hardware.  Conventionally called `job-settings.sh`.  Examples of these for each step are in the GitHub repo.
 
 `impecc-job` does these things:
 
