@@ -107,6 +107,10 @@ The step-level directory `unified-impeccable/workflow/stepN`
 
 == Typical user scenario
 
+How to get started.
+
+=== Set up
+
 . Clone IMPECCABLE - Use Wozniak's fork:
 +
 ----
@@ -129,6 +133,29 @@ You can point to this or make a copy.
 . Copy `impeccable-template.sh` to `impeccable-settings.sh` and edit to set up the `INFERENCE_DATA` location, etc. for your use
 . Start step with `impecc-job`
 . The user should not need to install or configure any software.  See <<conda_envs,Anaconda environments>> below.
+. Add directory `.../unified-impeccable/workflow` to `PATH` .  This contains the tool `impecc-job` .
+
+=== Run a step
+
+Steps must be run in order to produce all the intermediate data.
+
+. `cd` into `stepN`
+. Run either:
+.. Interactive:
+... Get an interactive session running
+... Run:
++
+----
+$ impecc-job bash sub_pP_sN-SITE.sh job-settings.sh
+----
++
+.. Scheduled on Aurora:
+... Run:
++
+----
+$ impecc-job qsub sub_pP_sN-SITE.sh job-settings.sh
+----
++
 
 == Step progress model
 
