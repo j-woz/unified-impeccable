@@ -25,7 +25,8 @@ then
   export NODES=m4_getenv(NODES)
   PPN=m4_getenv(PPN)
 fi
-PROCS=$[ NODES * PPN ]
+
+module load mpich
 
 source $WORKFLOW_STEP/../impeccable-settings.sh
 source $WORKFLOW_STEP/sub_p1_s2-setup.sh \
