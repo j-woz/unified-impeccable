@@ -1,8 +1,6 @@
 
 # SETUP AURORA PYTHON
 # source this to setup Python on Aurora
-# Apply set +eu beforehand because conda.sh and module-load can have
-#               extraneous internal errors
 
 LABEL="setup-aurora-python"
 
@@ -27,12 +25,3 @@ then
     return 1
   fi
 fi
-
-# Now doing this in site-SITE-settings
-# # These functions trigger errors:
-# echo "$LABEL: module load frameworks..."
-# # This source suppresses warnings about conda deactivate:
-# source /opt/aurora/24.347.0/oneapi/intel-conda-miniforge/etc/profile.d/conda.sh
-# module load frameworks
-# echo "$LABEL: activating anaconda..."
-# conda activate $CONDA_ENVIRONMENT
