@@ -24,7 +24,6 @@ then
   export NODES=m4_getenv(NODES)
   PPN=m4_getenv(PPN)
 fi
-PROCS=$[ NODES * PPN ]
 
 source $WORKFLOW_STEP/../impeccable-settings.sh
 
@@ -49,7 +48,7 @@ GPUS=$[ NODES * 12 ]
 
 # Validating runs
 (
-  VALIDATE_ARGS=( -s $MEM_DIR/scores -c config_htp.json )
+  VALIDATE_ARGS=( -s $MEM_DIR/scores -c $WORKFLOW_DIR/config_htp.json )
 
   set -x
 
