@@ -17,7 +17,7 @@ Code is `/htp_docking`
 * Single big mpi4py run...
 * Frontier: success in <22 minutes
 * Aurora:   success in <?? minutes
-** Needs `module frameworks/2024` plus `rdkit`
+** Needs `module frameworks` plus `rdkit`
 ** Uses environment `steps123`
 
 Step 2: "Surrogate Training"::
@@ -37,10 +37,7 @@ Code is `/surrogate_inference`
 +
 * Frontier: `sub_p1_s3` - WALLTIME=1h - success in <10 minutes
 * Aurora:   `sub_p1_s3` - WALLTIME=1h - success in <10 minutes
-** Needs `module frameworks/2024`
-** `conda install tensorflow keras mpi4py`
-** `pip install SmilesPE`
-** Ensure PALS `mpiexec`
+** Needs TensorFlow, mpi4py, Pandas
 
 Step 4a: "Pose Generation"::
 Code is `/pose_generation`
@@ -92,6 +89,9 @@ The directory containing the current script.  On Frontier/Slurm, this is found w
 `WORKFLOW_DIR`::
 The top-level directory `unified-impeccable/workflow`
 
+`WORKFLOW_STEP`::
+The step-level directory `unified-impeccable/workflow/stepN`
+
 === Workflow-level scripts
 
 * `site-SITE-settings.sh`
@@ -107,7 +107,12 @@ The top-level directory `unified-impeccable/workflow`
 
 == Typical user scenario
 
-. Clone IMPECCABLE
+. Clone IMPECCABLE - Use Wozniak's fork:
++
+----
+git@github.com:j-woz/IMPECCABLE_2.0.git
+----
++
 . Clone this workflow repo
 . Set up Python and run `install-py-pkgs.sh`
 . Copy
@@ -118,9 +123,12 @@ The top-level directory `unified-impeccable/workflow`
 . Obtain inference data
 .. On Frontier, at: +
 `/lustre/orion/chm155/proj-shared/apbhati/InferenceData` +
+.. On Aurora, at: +
+`/lus/flare/projects/workflow_scaling/wozniak/IMPECCABLE/InferenceData`
 You can point to this or make a copy.
-. Edit `impeccable-settings.sh` to set up the `INFERENCE_DATA` location, etc.
-. Start step with `stepN/submit-SITE.sh`
+. Copy `impeccable-template.sh` to `impeccable-settings.sh` and edit to set up the `INFERENCE_DATA` location, etc. for your use
+. Start step with `impecc-job`
+. The user should not need to install or configure any software.  See <<conda_envs,Anaconda environments>> below.
 
 == Step progress model
 
@@ -137,6 +145,7 @@ You can point to this or make a copy.
 .. invokes the science codes via `mpiexec`, `srun`, etc.
 
 == Anaconda environments
+[[conda_envs]]
 
 We call this `CONDA_ENVIRONMENT`.
 
@@ -149,6 +158,20 @@ This is specified for each step by `sub_pP_sN-SITE.sh` , which passes it into th
 === Frontier
 
 === Aurora
+
+On Aurora, the software is loaded by the `*-aurora.sh` scripts, which load necessary modules and activate Python environments.  We made clones of the main environments in `PY-IMPECCABLE.tar`, and added the additional science packages there.  These environments are automatically unpacked into `/tmp` at runtime for use by the workflow.
+
+==== Python installations
+
+TensorFlow:
+
+/opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/miniforge3-25.11.0-1-khkcc6i
+
+Horovod:
+
+/opt/aurora/25.190.0/oneapi/intel-conda-miniforge
+
+==== Steps
 
 Building `PY-IMPECCABLE.tar`
 
@@ -176,6 +199,18 @@ $ P=/tmp/PY-IMPECCABLE
 $ conda-clone
 $ workflow/install-py-pkgs.sh
 $ tcf -fZ -C /tmp ~/W/wozniak/conda-tgz/PY-IMPECCABLE.tar PY-IMPECCABLE
+----
+
+== Interactive sessions
+
+=== Aurora
+
+Our project on Aurora is IMPECCAFLOW.
+
+Use something like:
+
+----
+qsub -I -l select=1 -l walltime=60:00 -A IMPECCAFLOW -q debug -l filesystems=home:flare
 ----
 
 == TODO
