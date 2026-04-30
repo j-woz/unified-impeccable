@@ -42,6 +42,12 @@ CHANNELS=( -c conda-forge
 # Installation steps12:
 # try module frameworks/2024.2.1_u1 in /opt/aurora/24.180.3 - DELETED 2026-03-11
 # try module frameworks/2025.3.1 in /opt/aurora/26.26
+
+# Installation step3
+# module tensorflow is
+#  conda  /opt/aurora/25.190.0/oneapi/intel-conda-miniforge
+#  env    /opt/aurora/25.190.0/frameworks/aurora_tensorflow-2025.2.0
+
 PKGS_CONDA=(
   pydantic-settings
   openeye-toolkits
@@ -50,6 +56,8 @@ PKGS_CONDA=(
   mpi4py
   # 2 +PIP
   # horovod keras tensorflow IPython
+  # Step 3
+  pandas 'numpy==1.26.4'
 
   # Step 4a:
   mdanalysis
@@ -61,8 +69,12 @@ PKGS_PIP=(
   # Step 2
   pandas # must pin 'numpy==1.26.4' to retain ALCF version! do not allow version change!
   IPython
-  SmilesPE
-  transformers
+  # Step 2
+  SmilesPE # ?
+
+  # Step 3
+  # Install mpi4py from GitHub checkout using ./install-mpi4py.sh
+  SmilesPE IPython transformers
 )
 
 @ conda install --yes ${CHANNELS[@]} ${PKGS_CONDA[@]}
