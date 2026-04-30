@@ -14,6 +14,8 @@
 
 set -eu
 
+LABEL=m4_getenv(NAME)
+
 WORKFLOW_STEP=m4_getenv(WORKFLOW_STEP)
 cd $WORKFLOW_STEP
 
@@ -31,8 +33,6 @@ source $WORKFLOW_STEP/sub_p1_s2-setup.sh \
               /tmp/PY-IMPECCABLE/step2
 
 # /opt/aurora/25.190.0/frameworks/aurora_tensorflow-2025.2.0
-
-LABEL=m4_getenv(NAME)
 
 export TF_FORCE_GPU_ALLOW_GROWTH=true
 export MIOPEN_USER_DB_PATH=./miopen-cache
