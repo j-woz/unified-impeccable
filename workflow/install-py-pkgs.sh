@@ -49,14 +49,17 @@ CHANNELS=( -c conda-forge
 #  env    /opt/aurora/25.190.0/frameworks/aurora_tensorflow-2025.2.0
 
 PKGS_CONDA=(
+  # Step 1
   pydantic-settings
   openeye-toolkits
-  # Step 1
   rdkit
-  mpi4py
-  # 2 +PIP
-  # horovod keras tensorflow IPython
-  # Step 3
+  pyyaml
+  # Install mpi4py from GitHub checkout using ./install-mpi4py.sh
+
+  # Step 2 +PIP
+  horovod keras tensorflow IPython
+
+  # Step 3 +PIP
   pandas 'numpy==1.26.4'
 
   # Step 4a:
