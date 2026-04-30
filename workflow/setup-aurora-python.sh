@@ -11,7 +11,7 @@ msg start ...
 # Top-level directory under which are all conda environments
 CONDA_TARGET=/tmp/PY-IMPECCABLE
 
-ENVIRONMENT_TAR=~/W/wozniak/conda-tar/PY-IMPECCABLE.tar
+ENVIRONMENT_TAR=/lus/flare/projects/IMPECCAFLOW/wozniak/conda-tar/PY-IMPECCABLE.tar
 
 if [[ ! -e $CONDA_TARGET ]]
 then
