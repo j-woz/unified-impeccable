@@ -68,10 +68,6 @@ Step 6: "REINVENT"::
 
 == Script architecture
 
-=== Install time
-
-* `install-py-pkgs.sh`
-
 === Naming conventions
 
 `CODE_DIR`::
@@ -104,6 +100,8 @@ The step-level directory `unified-impeccable/workflow/stepN`
 * `impeccable-settings.sh`
 ** Application-level settings for a specific science run.
 ** User may edit this to set `SMILES_INPUT`, `RECEP_FILE`, `INFERENCE_DATA` locations, etc.
+* `job-settings.sh`
+** System-level settings for each step.  Includes `WALLTIME`, `NODES`, `QUEUE`, etc.
 
 == Typical user scenario
 
@@ -118,7 +116,6 @@ git@github.com:j-woz/IMPECCABLE_2.0.git
 ----
 +
 . Clone this workflow repo
-. Set up Python and run `install-py-pkgs.sh`
 . Copy
 .. `site-SITE-template.sh` to `site-SITE-settings.sh`
 .. `impeccable-template.sh` to `impeccable-settings.sh`
@@ -234,9 +231,7 @@ The workflow:
 
 ==== Steps
 
-Building `PY-IMPECCABLE.tar`
-
-See `workflow/install-py-pkgs.sh`
+The tarball `PY-IMPECCABLE.tar` contains multiple Anaconda environments, possibly one for each step.  It is created by cloning the ALCF Anaconda environments, then adding packages to them, then creating the tarball.  We use `workflow/install-py-pkgs.sh` to keep track of what packages we are adding.
 
 Installs to `P=/tmp/PY-IMPECCABLE`
 with subdirectories:
@@ -250,16 +245,25 @@ with subdirectories:
 `$P/step2`::
 `frameworks` plus REINVENT
 
-==== Wozniak notes
+==== Python installation notes
 
-To build the tarball:
+To build/edit the conda environment for a step:
+
+. Change the module settings in `*-aurora.sh`
+. Edit the `PY-IMPECCABLE.tar` as indicated below
 
 ----
+$ TAR=/lus/flare/projects/IMPECCAFLOW/wozniak/conda-tar/PY-IMPECCABLE.tar
+# Unpack the tarball:
+$ tar -xfz $TAR -C /tmp
+# Possibly overwrite a step with a new clone:
 $ E=$CONDA_PREFIX
 $ P=/tmp/PY-IMPECCABLE
 $ conda-clone
+# Edit the packages in the environment
 $ workflow/install-py-pkgs.sh
-$ tcf -fZ -C /tmp ~/W/wozniak/conda-tgz/PY-IMPECCABLE.tar PY-IMPECCABLE
+# Repack the tarball:
+$ tar -c -C /tmp -f $TAR PY-IMPECCABLE
 ----
 
 === Inspecting environments
