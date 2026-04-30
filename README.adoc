@@ -217,7 +217,9 @@ On Aurora, the software is loaded by the `*-aurora.sh` scripts, which load neces
 
 The Python installations are noted for each step in the `*-aurora.sh` scripts.  When the `*-setup.sh` scripts are sourced, they are passed a `CONDA_INSTALLATION` and `CONDA_ENVIRONMENT`.
 
-Example: In step3 we have:
+===== Example
+
+In step3 we have:
 
 ----
 source $WORKFLOW_STEP/sub_p1_s3-setup.sh \
