@@ -132,7 +132,8 @@ You can point to this or make a copy.
 
 == Step progress model
 
-. User invokes `stepN/submit-SITE.sh` .  This submits the job to the scheduler.
+. Each step has "step scripts" named `stepN/sub_pP_sN-SITE.sh`, for phase P, step N, and site SITE. 
+. User invokes `impecc-job on the step script.  This submits the job to the scheduler or runs it interactively.  See <<impecc-job>> below.
 . This runs `stepN/sub_pP_sN-SITE.sh` ,
 .. which refers to `../site-SITE-settings.sh` for site settings and
 .. loads application settings from `../impeccable-settings.sh`
@@ -143,6 +144,31 @@ You can point to this or make a copy.
 ... Filters input files via m4 (e.g., JSON)
 .. contains the SITE-specific scheduler settings and
 .. invokes the science codes via `mpiexec`, `srun`, etc.
+
+== impecc-job
+
+This lightweight shell script is our workflow tool.  Usage:
+
+----
+impecc-job LAUNCHER STEP_SCRIPT SETTINGS
+----
+
+where:
+
+`LAUNCHER`::
+`bash` for interactive or `qsub` or `srun` to submit.
+
+`STEP_SCRIPT`::
+The step script itself.
+
+`SETTINGS`::
+The job settings script which contains node counts and other system configuration information for the scheduler and compute hardware.  Conventionally called `job-settings.sh`.  Examples of these for each step are in git.
+
+`impecc-job` does these things:
+
+. Injects settings into the step script via `m4`.  For ease of maintenance, we limit ourselves to the use of `m4_getenv(X)`, which injects environment variable `X` at that point in the file.
+. Copies the edited step script into the `IMPECCABLE_WORK` directory, which is specified in the settings file.
+. Runs the step script.
 
 == Anaconda environments
 [[conda_envs]]
