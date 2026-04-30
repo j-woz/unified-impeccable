@@ -177,7 +177,7 @@ $ impecc-job qsub sub_pP_sN-SITE.sh job-settings.sh
 This lightweight shell script is our workflow tool.  Usage:
 
 ----
-impecc-job LAUNCHER STEP_SCRIPT SETTINGS
+$ impecc-job LAUNCHER STEP_SCRIPT SETTINGS
 ----
 
 where:
@@ -216,13 +216,20 @@ On Aurora, the software is loaded by the `*-aurora.sh` scripts, which load neces
 
 ==== Python installations
 
-TensorFlow:
+The Python installations are noted for each step in the `*-aurora.sh` scripts.  When the `*-setup.sh` scripts are sourced, they are passed a `CONDA_INSTALLATION` and `CONDA_ENVIRONMENT`.
 
-/opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/miniforge3-25.11.0-1-khkcc6i
+Example: In step3 we have:
 
-Horovod:
+----
+source $WORKFLOW_STEP/sub_p1_s3-setup.sh \
+       /opt/aurora/25.190.0/oneapi/intel-conda-miniforge \
+       /tmp/PY-IMPECCABLE/step3
+----
 
-/opt/aurora/25.190.0/oneapi/intel-conda-miniforge
+The workflow:
+. Automatically unpacks `PY-IMPECCABLE.tar`
+. Initializes the given `intel-conda-miniforge`
+. Activates `PY-IMPECCABLE/step3`
 
 ==== Steps
 
@@ -253,6 +260,13 @@ $ conda-clone
 $ workflow/install-py-pkgs.sh
 $ tcf -fZ -C /tmp ~/W/wozniak/conda-tgz/PY-IMPECCABLE.tar PY-IMPECCABLE
 ----
+
+=== Inspecting environments
+
+To see what we put in the environments for each step:
+
+. See the `*-setup.sh` script for the step to see what installation and environment is used.
+. See `workflow/install-py-pkgs.sh` to see what packages were installed into `PY-IMPECCABLE.tar` for each step.  `install-py-pkgs.sh` is currently a rough sketch, and cannot be run directly, but it does contain running notes for what packages and versions are used for `conda install` and `pip install` .
 
 == Interactive sessions
 
