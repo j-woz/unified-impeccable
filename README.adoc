@@ -75,13 +75,13 @@ Step 6: "REINVENT"::
 === Naming conventions
 
 `CODE_DIR`::
-The original location of the code, typically a git clone
+The original location of the code in the IMPECCABLE-2.0 repo.
 
 `WORK_DIR`::
-The code is copied here for execution
+The code is copied here for execution.
 
 `MEM_DIR`::
-A subdirectory of `WORK_DIR` for step data.  This is the `PWD` for the science code execution
+A subdirectory of `WORK_DIR` for step data.  This is the `PWD` for the science code execution.  Short for "member directory".
 
 `THIS`::
 The directory containing the current script.  On Frontier/Slurm, this is found with a Slurm-specific variable.  On Aurora/PBS, we can use `PBS_O_WORKDIR`.  But it is better to look this up for each run script for interactive cases where the user may `cd` from the original submit-time directory.
