@@ -155,11 +155,10 @@ $ impecc-job bash sub_pP_sN-SITE.sh job-settings.sh
 ----
 $ impecc-job qsub sub_pP_sN-SITE.sh job-settings.sh
 ----
-+
 
 == Step progress model
 
-. Each step has "step scripts" named `stepN/sub_pP_sN-SITE.sh`, for phase P, step N, and site SITE. 
+. Each step has "step scripts" named `stepN/sub_pP_sN-SITE.sh`, for phase P, step N, and site SITE.
 . User invokes `impecc-job on the step script.  This submits the job to the scheduler or runs it interactively.  See <<impecc-job>> below.
 . This runs `stepN/sub_pP_sN-SITE.sh` ,
 .. which refers to `../site-SITE-settings.sh` for site settings and
