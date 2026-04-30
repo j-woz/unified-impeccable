@@ -142,7 +142,7 @@ Steps must be run in order to produce all the intermediate data.
 . `cd` into `stepN`
 . Run either:
 .. Interactive:
-... Get an interactive session running
+... Get an <<ui_session,interactive session>> running
 ... Run:
 +
 ----
@@ -270,6 +270,7 @@ To see what we put in the environments for each step:
 . See `workflow/install-py-pkgs.sh` to see what packages were installed into `PY-IMPECCABLE.tar` for each step.  `install-py-pkgs.sh` is currently a rough sketch, and cannot be run directly, but it does contain running notes for what packages and versions are used for `conda install` and `pip install` .
 
 == Interactive sessions
+[[ui_session]]
 
 === Aurora
 
