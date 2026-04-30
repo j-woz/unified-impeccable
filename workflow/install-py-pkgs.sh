@@ -57,7 +57,9 @@ PKGS_CONDA=(
   # Install mpi4py from GitHub checkout using ./install-mpi4py.sh
 
   # Step 2 +PIP
-  horovod keras tensorflow IPython
+  exceptiongroup
+  # Also needed (but use PIP):
+  # horovod keras tensorflow ipython
 
   # Step 3 +PIP
   pandas 'numpy==1.26.4'
@@ -70,10 +72,9 @@ PKGS_CONDA=(
 )
 PKGS_PIP=(
   # Step 2
-  pandas # must pin 'numpy==1.26.4' to retain ALCF version! do not allow version change!
-  IPython
-  # Step 2
-  SmilesPE # ?
+  pandas IPython scikit-learn SmilesPE transformers
+  # must pin 'numpy==1.26.4' to retain ALCF version!
+  # do not allow version change!
 
   # Step 3
   # Install mpi4py from GitHub checkout using ./install-mpi4py.sh
