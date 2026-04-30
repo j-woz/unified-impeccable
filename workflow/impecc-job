@@ -7,6 +7,7 @@ THIS=$( dirname $0 )
 LABEL="impecc-job"
 
 source $THIS/utils.sh
+PATH=$THIS:$PATH
 
 if (( ${#} != 3 ))
 then
@@ -49,7 +50,7 @@ touch $SUBMIT_SH
   echo "#!/bin/bash"
   echo "# JOB: NAME:" $NAME
   echo "# JOB: FILE:" $( basename $SCRIPT_SH )
-  echo "# JOB: DATE:" $( date "+%Y-%m-%d %H:%M" )
+  echo "# JOB: DATE:" $( date-rfc3339 )
   echo
 } > $SUBMIT_SH
 
