@@ -13,6 +13,8 @@
 #PBS -l nodes=m4_getenv(NODES):ppn=64
 #PBS -l filesystems=home:flare
 
+LABEL=m4_getenv(NAME)
+
 WORKFLOW_STEP=m4_getenv(WORKFLOW_STEP)
 cd $WORKFLOW_STEP
 
