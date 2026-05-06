@@ -309,9 +309,23 @@ PSI/J
 
 Try step4
 
+=== Yibo
+Try step1 and step2
+
 == Troubleshooting
 
 MPI errors on Aurora::
 Be sure to load the appropriate `frameworks` module that matches the Python you are using.
 
 Step2 had sycl.8 error with frameworks/2024
+
+In current Aurora testing, `frameworks/2025.3.1` was needed instead of older `frameworks/2024`-style usage.
+Additional issues seen in step1 included:
+* `ModuleNotFoundError: No module named 'yaml'`
+After fixing the Python/package and license setup, step1 was able to move forward again.
+
+Step2 notes on Aurora::
+In current small-scale testing, step2 was able to get through submission, setup, and preprocessing, but then failed at the training stage with:
+`ModuleNotFoundError: No module named 'horovod'`
+So for step2, after the framework/module issue is addressed, the next thing to check is 
+whether the active Python environment contains `horovod` and related training dependencies.
