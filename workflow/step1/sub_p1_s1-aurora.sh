@@ -35,13 +35,17 @@ LABEL=m4_getenv(NAME)
 
 GPUS=$[ NODES * 12 ]
 
+MPIEXEC_FLAGS=(
+  -n   $PROCS
+  --ppn $PPN # $TASKS_PER_NODE
+)
+
 (
   printf "using mpiexec: "
   which mpiexec
   show PWD
   LABEL=p1_s1_train
-  tm mpiexec -n $PROCS --ppn $PPN \
-                python $WORK_DIR/docking_openeye.py
+  tm mpiexec ${MPIEXEC_FLAGS[@]} python $WORK_DIR/docking_openeye.py
   # 64
   # DB INSERT "sub_p1_s1/docking" OK;
 )

@@ -43,9 +43,14 @@ mkdir -pv $MIOPEN_USER_DB_PATH
 # echo $CONDA_PREFIX
 # echo $CONDA_EXE
 
+MPIEXEC_FLAGS=(
+  -n   $PROCS
+  --ppn $PPN # $TASKS_PER_NODE
+)
+
 hostname
 # Catch errors: TF/HVD crash on exit on Aurora:
-if mpiexec -n $PROCS --ppn $PPN python3 $WORK_DIR/smiles_regress_transformer_run.py
+if mpiexec ${MPIEXEC_FLAGS[@]} python3 $WORK_DIR/smiles_regress_transformer_run.py
 then
   : OK
 else
