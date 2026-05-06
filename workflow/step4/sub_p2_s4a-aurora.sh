@@ -31,18 +31,24 @@ source $WORKFLOW_STEP/sub_p2_s4a-setup.sh \
 # TMP CHANGE!
 TASKS_PER_NODE=32
 
+MPIEXEC_FLAGS=(
+  -n   $PROCS
+  -ppn $PPN # $TASKS_PER_NODE
+)
+
 A=( -s fixpka_compounds.smi
     -r $recep_file_dir/$recep_file
     -p $WORK_DIR/input/$protein_pdb
     -o output_combined_trajectories
   )
 
+LABEL=m4_getenv(NAME)
 (
-  set -x
   PATH=/opt/cray/pals/1.8/bin:$PATH
+  set -x
   which mpiexec
-
-  python $WORK_DIR/docking_openeye_pose.py ${A[@]}
+  tm mpiexec ${MPIEXEC_FLAGS[@]} \
+     python $WORK_DIR/docking_openeye_pose.py ${A[@]}
 )
 
-echo $0: OK
+msg OK
