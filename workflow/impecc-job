@@ -54,6 +54,13 @@ touch $SUBMIT_SH
   echo
 } > $SUBMIT_SH
 
+if [[ $SUBMITTER != "bash" ]]
+then
+  msg "submitting job..."
+  printf "PROCS: %4i\n" ${PROCS:-1}
+  printf "PPN:   %4i\n" ${PPN:-1}
+fi
+
 m4 -P $THIS/common.m4 $SCRIPT_SH >> $SUBMIT_SH
 
 set -x
