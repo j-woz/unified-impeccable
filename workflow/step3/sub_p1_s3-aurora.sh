@@ -1,45 +1,37 @@
 #!/bin/bash
 
-# SUB P1 S1 AURORA
+# SUB P1 S3 AURORA
 
 #PBS -A workflow_scaling
-#PBS -N p1_s3
+#PBS -N m4_getenv(NAME)
 # Merge streams:
-#PBS -o sub_p1_s3.out
+#PBS -o m4_getenv(OUTPUT)
 #PBS -j oe
-#PBS -l walltime=1:00:00
-#PBS -q debug
-#PBS -l nodes=1:ppn=64
+#PBS -l walltime=m4_getenv(WALLTIME)
+#PBS -q m4_getenv(QUEUE)
+#PBS -l nodes=m4_getenv(NODES):ppn=8
 #PBS -l filesystems=home:flare
 
+LABEL=m4_getenv(NAME)
+NODES=m4_getenv(NODES)
+PPN=m4_getenv(PPN)
 
-
-THIS=$( realpath $( dirname $0 ) )
-cd $THIS
+WORKFLOW_STEP=m4_getenv(WORKFLOW_STEP)
+cd $WORKFLOW_STEP
 
 export SITE=aurora
 
-source $THIS/../impeccable-settings.sh
+source $WORKFLOW_STEP/../impeccable-settings.sh
 
-module load frameworks/2024.2.1_u1
-set -eu
-source $THIS/sub_p1_s3-setup.sh \
-       /opt/aurora/24.180.3/oneapi/intel-conda-miniforge \
+source $WORKFLOW_STEP/sub_p1_s3-setup.sh \
+       /opt/aurora/25.190.0/oneapi/intel-conda-miniforge \
        /tmp/PY-IMPECCABLE/step3
 
-       # Roots:
-       # /opt/aurora/24.180.3/oneapi/intel-conda-miniforge
-       # /opt/aurora/25.190.0/oneapi/intel-conda-miniforge
-
-       # Environments:
-       # /tmp/frameworks-2024.2.1_2026-02-11
-       # /tmp/frameworks-2025.2.0_2026-02-11
-       # /tmp/frameworks-2024.180.3
-       # /tmp/PY-IMPECCABLE/steps123
+set -eu
 
 MPIEXEC_FLAGS=(
-  -n  1 #  $((NNODES*TASKS_PER_NODE))
-  -ppn 2 # $TASKS_PER_NODE
+  -n   $PROCS
+  -ppn $PPN # $TASKS_PER_NODE
 )
 
 APP=(
@@ -54,7 +46,8 @@ APP=(
 
   set -x
 
-  which mpiexec
+  which mpiexec python
+  echo CONDA_PREFIX=$CONDA_PREFIX
   mpiexec ${MPIEXEC_FLAGS[@]} python ${APP[@]}
 )
 
