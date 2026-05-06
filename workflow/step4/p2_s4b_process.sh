@@ -3,6 +3,9 @@ lig=$1
 ITR_DIR=$2
 WORK_DIR=$3
 
+# These are in conda package ambertools
+which antechamber tleap parmchk2 || exit 1
+
 #Execute commands for each ligand
 # Parameter generation
 mkdir -p par-gen/$lig
