@@ -48,6 +48,9 @@ CHANNELS=( -c conda-forge
 #  conda  /opt/aurora/25.190.0/oneapi/intel-conda-miniforge
 #  env    /opt/aurora/25.190.0/frameworks/aurora_tensorflow-2025.2.0
 
+# Installation step4a:
+# try module frameworks/2025.3.1 plus conda packages below
+
 PKGS_CONDA=(
   # Step 1
   pydantic-settings
@@ -65,7 +68,7 @@ PKGS_CONDA=(
   pandas 'numpy==1.26.4'
 
   # Step 4a:
-  mdanalysis
+  mdanalysis openeye-toolkits rdkit
   # Step 5b:
   # Works with all in frameworks/2024
   ambertools
