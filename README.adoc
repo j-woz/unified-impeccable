@@ -16,9 +16,9 @@ Code is `/htp_docking`
 +
 * Single big mpi4py run...
 * Frontier: success in <22 minutes
-* Aurora:   success in <?? minutes
+* Aurora:   success in <11 minutes
 ** Needs `module frameworks` plus `rdkit`
-** Uses environment `steps123`
+** Uses environment `step1`
 
 Step 2: "Surrogate Training"::
 Code is `/surrogate_training`
@@ -28,9 +28,9 @@ Code is `/surrogate_training`
 * MPI layout TOTALLY DIFFERENT?
 * Frontier: success in <10 minutes
 * Aurora:   works now: 2026-01-20
-** Needs `module frameworks/2024` plus `horovod keras tensorflow IPython` and
+** Needs `module tensorflow` plus `horovod keras tensorflow IPython` and
    `pip SmilesPE` in
-** Uses environment `steps123`
+** Uses environment `step2`
 
 Step 3: "Surrogate Inference"::
 Code is `/surrogate_inference`
@@ -38,27 +38,28 @@ Code is `/surrogate_inference`
 * Frontier: `sub_p1_s3` - WALLTIME=1h - success in <10 minutes
 * Aurora:   `sub_p1_s3` - WALLTIME=1h - success in <10 minutes
 ** Needs TensorFlow, mpi4py, Pandas
+** Uses environment `step3`
 
 Step 4a: "Pose Generation"::
 Code is `/pose_generation`
 +
+* Uses OpenEye, MDAnalysis, mpi4py
 * Frontier: `sub_p2_s4a` - WALLTIME=1h - success in <2 minutes
 * Aurora:   `sub_p2_s4a` - success in <5 minutes
-** Needs `module frameworks/2024`
+** Needs `module frameworks`
 ** `conda install mdanalysis`
-** Can merge with environment steps123
+** Uses environment `step4`
 
 Step 4b: "Amber"::
-** Needs `module frameworks/2024`
+** Needs `module frameworks`
 ** `conda install ambertools` (mmpbsa.py) (mmpbsa.py.MPI)
-** Can merge with environment steps123
+** Can merge with some environment?
 
 Step 4c: "NAMD"::
 * Waiting for Wei
 
 Step 4d: "MMPBSA"::
 * Same ambertools environment, mmpbsa.py
-
 
 Step 5: ::
 * Same ambertools and NAMD environments
@@ -70,11 +71,14 @@ Step 6: "REINVENT"::
 
 === Naming conventions
 
-`CODE_DIR`::
-The original location of the code in the IMPECCABLE-2.0 repo.
+`WORK_TOP`::
+The top level directory for execution and output.
 
 `WORK_DIR`::
-The code is copied here for execution.
+Normally `$WORK_TOP/stepN` .  The code is copied here for execution.
+
+`CODE_DIR`::
+The original location of the code in the IMPECCABLE-2.0 repo.
 
 `MEM_DIR`::
 A subdirectory of `WORK_DIR` for step data.  This is the `PWD` for the science code execution.  Short for "member directory".
@@ -87,6 +91,9 @@ The top-level directory `unified-impeccable/workflow`
 
 `WORKFLOW_STEP`::
 The step-level directory `unified-impeccable/workflow/stepN`
+
+`IMPECCABLE_WORK`::
+The filtered job scripts from `impecc-job` are copied and run from here, with job logs.
 
 === Workflow-level scripts
 
@@ -117,8 +124,8 @@ git@github.com:j-woz/IMPECCABLE_2.0.git
 +
 . Clone this workflow repo
 . Copy
-.. `site-SITE-template.sh` to `site-SITE-settings.sh`
-.. `impeccable-template.sh` to `impeccable-settings.sh`
+.. `site-SITE-template.sh` to `site-SITE-settings.sh` and edit as needed
+.. `impeccable-template.sh` to `impeccable-settings.sh` and edit as needed to set up the `INFERENCE_DATA` location, etc. for your use
 .. Thus, `*-settings.sh` files are local and should not be pushed to git.
 . Edit `setup-SITE.sh` for license and any other software, including Python
 . Obtain inference data
@@ -127,7 +134,6 @@ git@github.com:j-woz/IMPECCABLE_2.0.git
 .. On Aurora, at: +
 `/lus/flare/projects/workflow_scaling/wozniak/IMPECCABLE/InferenceData`
 You can point to this or make a copy.
-. Copy `impeccable-template.sh` to `impeccable-settings.sh` and edit to set up the `INFERENCE_DATA` location, etc. for your use
 . Start step with `impecc-job`
 . The user should not need to install or configure any software.  See <<conda_envs,Anaconda environments>> below.
 . Add directory `.../unified-impeccable/workflow` to `PATH` .  This contains the tool `impecc-job` .
@@ -137,6 +143,7 @@ You can point to this or make a copy.
 Steps must be run in order to produce all the intermediate data.
 
 . `cd` into `stepN`
+. Copy `job-template.sh` to `job-settings.sh` and edit
 . Run either:
 .. Interactive:
 ... Get an <<ui_session,interactive session>> running
@@ -198,17 +205,21 @@ The job settings script which contains node counts and other system configuratio
 
 We call this `CONDA_ENVIRONMENT`.
 
-* step1: oepython_new
-* step2: st_train
-* step3: st_mpi_base
-
 This is specified for each step by `sub_pP_sN-SITE.sh` , which passes it into the `sub_pP_sN-setup.sh` script, which passes it to `site-SITE-settings.sh`, which activates that environment after loading Python for that site.
 
 === Frontier
 
+These are from Agastya
+
+* step1: oepython_new
+* step2: st_train
+* step3: st_mpi_base
+
 === Aurora
 
 On Aurora, the software is loaded by the `*-aurora.sh` scripts, which load necessary modules and activate Python environments.  We made clones of the main environments in `PY-IMPECCABLE.tar`, and added the additional science packages there.  These environments are automatically unpacked into `/tmp` at runtime for use by the workflow.
+
+The latest installations are documented in `install-py-pkgs.sh`
 
 ==== Python installations
 
@@ -285,6 +296,12 @@ Use something like:
 ----
 qsub -I -l select=1 -l walltime=60:00 -A IMPECCAFLOW -q debug -l filesystems=home:flare
 ----
+
+== Shell utilities
+
+In `workflow/utils.sh`.
+
+Our logging function `msg()` produces a nice timestamp prefix.  If global `LABEL` is set, this is also used as a prefix.
 
 == TODO
 
