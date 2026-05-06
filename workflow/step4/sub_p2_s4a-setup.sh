@@ -1,7 +1,9 @@
 
 # SUB P2 S4A SETUP
 # Portable setup script
-# Assumes SITE is in the environment
+# Assumes
+#          WORKFLOW_STEP is a global
+#          SITE is in the environment
 
 if (( ${#*} != 2 ))
 then
@@ -15,7 +17,7 @@ CONDA_ENVIRONMENT=$2
 
 source $WORKFLOW_DIR/utils.sh
 
-source $THIS/../site-${SITE:-UNKNOWN}-settings.sh \
+source $WORKFLOW_STEP/../site-${SITE:-UNKNOWN}-settings.sh \
        $CONDA_INSTALLATION $CONDA_ENVIRONMENT
 
 CODE_DIR=$IMPECCABLE_CODE/pose_generation

@@ -1,28 +1,32 @@
 #!/bin/bash
 
-# SUB P1 S1 AURORA
+# SUB P2 S4A AURORA
 
-#PBS -A workflow_scaling
-#PBS -N p2_s4a
+#PBS -A IMPECCAFLOW
+#PBS -N m4_getenv(NAME)
 # Merge streams:
-#PBS -o sub_p2_s4a.out
+#PBS -o m4_getenv(OUTPUT)
 #PBS -j oe
-#PBS -l walltime=0:05:00
-#PBS -q debug
-#PBS -l nodes=1:ppn=64
+#PBS -l walltime=m4_getenv(WALLTIME)
+#PBS -q m4_getenv(QUEUE)
+#PBS -l nodes=m4_getenv(NODES):ppn=64
 #PBS -l filesystems=home:flare
 
 set -eu
 
-THIS=$( realpath $( dirname $0 ) )
-cd $THIS
+SITE=aurora
+LABEL=m4_getenv(NAME)
+export NODES=m4_getenv(NODES)
+export PPN=m4_getenv(PPN)
 
-export SITE=aurora
+WORKFLOW_STEP=m4_getenv(WORKFLOW_STEP)
+cd $WORKFLOW_STEP
 
-source $THIS/../impeccable-settings.sh
-source $THIS/sub_p2_s4a-setup.sh \
-       /opt/aurora/24.180.3/oneapi/intel-conda-miniforge \
-       /tmp/PY-IMPECCABLE/steps123
+source $WORKFLOW_STEP/../impeccable-settings.sh
+
+source $WORKFLOW_STEP/sub_p2_s4a-setup.sh \
+       /opt/aurora/25.190.0/oneapi/intel-conda-miniforge \
+       /tmp/PY-IMPECCABLE/step4
 
 # TMP CHANGE!
 TASKS_PER_NODE=32

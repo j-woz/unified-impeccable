@@ -13,7 +13,7 @@ CONDA_ENVIRONMENT=$2
 
 source $WORKFLOW_DIR/utils.sh
 
-source $THIS/../site-${SITE:-UNKNOWN}-settings.sh \
+source $WORKFLOW_STEP/../site-${SITE:-UNKNOWN}-settings.sh \
        $CONDA_INSTALLATION $CONDA_ENVIRONMENT
 
 # Setting paths
