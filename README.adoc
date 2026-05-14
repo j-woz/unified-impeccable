@@ -77,13 +77,13 @@ Step 6: "REINVENT"::
 The directory containing the current script.  On Frontier/Slurm, this is found with a Slurm-specific variable.  On Aurora/PBS, we can use `PBS_O_WORKDIR`.  But it is better to look this up for each run script for interactive cases where the user may `cd` from the original submit-time directory.
 
 `IMPECCABLE_WORK`::
-The filtered job scripts from `impecc-job` are copied and run from here, with job logs.  Intermediate data is also stored here.  This must be set in the `SETTINGS_IMPECCABLE` script.
+The filtered job scripts from `impecc-job` are copied and run from here, with job logs.  Intermediate data is also stored here.  This must be set in the `SETTINGS_IMPECCABLE` script.  This allows you to easily manage multiple concurrent workflow campaigns, with different science settings, data, etc.
 
 `SETTINGS_JOB`::
 The job settings, such as `NODES` and `QUEUE` are stored here.  Science results should not be affected by anything in `SETTINGS_JOB`, these just affect how the job is run on the infrastructure.
 
 `SETTINGS_IMPECCABLE`::
-The application settings, such as `INFERENCE_DATA` and `SAMPLE_SIZE`, are stored here.  This also has the setting for `IMPECCABLE_WORK`.  A given workflow campaign, in a given `IMPECCABLE_WORK`, should run all steps with the same `SETTINGS_IMPECCABLE` file.
+The application settings, such as `INFERENCE_DATA` and `SAMPLE_SIZE`, are stored here.  This also has the setting for `IMPECCABLE_WORK`.  A given workflow campaign, specified by settings here, in a given directory `IMPECCABLE_WORK`, should run all steps with the same `SETTINGS_IMPECCABLE` file.
 
 `WORK_DIR`::
 Normally `IMPECCABLE_WORK/stepN` .  The code is copied here for execution.
