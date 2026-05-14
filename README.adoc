@@ -56,7 +56,9 @@ Step 4b: "Amber"::
 ** Can merge with some environment?
 
 Step 4c: "NAMD"::
-* Waiting for Wei
+* Using NAMD builds provided by Wei Jiang
+* Can use Parsl approach here from Wei Jiang
+* No scientific Python environment needed
 
 Step 4d: "MMPBSA"::
 * Same ambertools environment, mmpbsa.py
@@ -93,7 +95,13 @@ The top-level directory `unified-impeccable/workflow`
 The step-level directory `unified-impeccable/workflow/stepN`
 
 `IMPECCABLE_WORK`::
-The filtered job scripts from `impecc-job` are copied and run from here, with job logs.
+The filtered job scripts from `impecc-job` are copied and run from here, with job logs.  Intermediate data is also stored here.  This must be set in the `SETTINGS_IMPECCABLE` script.
+
+`SETTINGS_JOB`::
+The job settings, such as `NODES` and `QUEUE` are stored here.
+
+`SETTINGS_IMPECCABLE`::
+The application settings, such as `INFERENCE_DATA` and `SAMPLE_SIZE`, are stored here.
 
 === Workflow-level scripts
 
@@ -104,7 +112,7 @@ The filtered job scripts from `impecc-job` are copied and run from here, with jo
 *** Loads Anaconda, etc.
 ** User Settings
 *** Specific to the user that cloned the workflow.  User must specify the location of the IMPECCABLE clone and a desired output directory.
-* `impeccable-settings.sh`
+* `impeccable-template.sh`
 ** Application-level settings for a specific science run.
 ** User may edit this to set `SMILES_INPUT`, `RECEP_FILE`, `INFERENCE_DATA` locations, etc.
 * `job-settings.sh`
