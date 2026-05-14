@@ -1,5 +1,7 @@
 m4_comment(
   See impeccable-{template,settings}.sh for variable descriptions
+  These numbers are only read by step1 - after that,
+  data sizes are pulled from prior products on disk!
 )
 {
 "created":      "m4_esyscmd(date-rfc3339)",
