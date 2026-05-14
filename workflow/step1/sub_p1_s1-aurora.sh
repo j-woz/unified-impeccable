@@ -3,7 +3,7 @@
 # SUB P1 S1 AURORA
 # Aurora-specific launch of step tasks
 
-#PBS -A workflow_scaling
+#PBS -A IMPECCAFLOW
 #PBS -N m4_getenv(NAME)
 # Merge streams:
 #PBS -o m4_getenv(OUTPUT)
@@ -13,25 +13,26 @@
 #PBS -l nodes=m4_getenv(NODES):ppn=64
 #PBS -l filesystems=home:flare
 
+set -eu
+
 LABEL=m4_getenv(NAME)
 
 WORKFLOW_STEP=m4_getenv(WORKFLOW_STEP)
 cd $WORKFLOW_STEP
 
 export SITE=aurora
-if [[ ${NODES:-} == "" ]]
-then
-  export NODES=m4_getenv(NODES)
-  PPN=m4_getenv(PPN)
-fi
+LABEL=m4_getenv(NAME)
+export NODES=m4_getenv(NODES)
+PPN=m4_getenv(PPN)
 
-source $WORKFLOW_STEP/../impeccable-settings.sh
+source $WORKFLOW_STEP/../utils.sh
+
+SETTINGS_IMPECCABLE=m4_getenv(SETTINGS_IMPECCABLE)
+source-checked $SETTINGS_IMPECCABLE
 
 source $WORKFLOW_STEP/sub_p1_s1-setup.sh \
        /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/miniforge3-25.11.0-1-khkcc6i \
        /tmp/PY-IMPECCABLE/step1
-
-LABEL=m4_getenv(NAME)
 
 GPUS=$[ NODES * 12 ]
 

@@ -18,6 +18,9 @@ export SAMPLE_SIZE=1000
 N_COMPS=50
 n_replicas=4
 
+# Location for job scripts and stdout/stderr logs
+export IMPECCABLE_WORK=/lus/flare/projects/workflow_scaling/wozniak/IMPECCABLE/work/jobs
+
 # OLD STUFF
 # export INFERENCE_DATA=/lustre/orion/chm155/proj-shared/wozniak/InferenceData
 # export INFERENCE_DATA=/lustre/orion/chm155/proj-shared/avasan/InferenceData

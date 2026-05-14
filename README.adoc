@@ -73,11 +73,20 @@ Step 6: "REINVENT"::
 
 === Naming conventions
 
-`WORK_TOP`::
-The top level directory for execution and output.
+`THIS`::
+The directory containing the current script.  On Frontier/Slurm, this is found with a Slurm-specific variable.  On Aurora/PBS, we can use `PBS_O_WORKDIR`.  But it is better to look this up for each run script for interactive cases where the user may `cd` from the original submit-time directory.
+
+`IMPECCABLE_WORK`::
+The filtered job scripts from `impecc-job` are copied and run from here, with job logs.  Intermediate data is also stored here.  This must be set in the `SETTINGS_IMPECCABLE` script.
+
+`SETTINGS_JOB`::
+The job settings, such as `NODES` and `QUEUE` are stored here.  Science results should not be affected by anything in `SETTINGS_JOB`, these just affect how the job is run on the infrastructure.
+
+`SETTINGS_IMPECCABLE`::
+The application settings, such as `INFERENCE_DATA` and `SAMPLE_SIZE`, are stored here.  This also has the setting for `IMPECCABLE_WORK`.  A given workflow campaign, in a given `IMPECCABLE_WORK`, should run all steps with the same `SETTINGS_IMPECCABLE` file.
 
 `WORK_DIR`::
-Normally `$WORK_TOP/stepN` .  The code is copied here for execution.
+Normally `IMPECCABLE_WORK/stepN` .  The code is copied here for execution.
 
 `CODE_DIR`::
 The original location of the code in the IMPECCABLE-2.0 repo.
@@ -85,34 +94,22 @@ The original location of the code in the IMPECCABLE-2.0 repo.
 `MEM_DIR`::
 A subdirectory of `WORK_DIR` for step data.  This is the `PWD` for the science code execution.  Short for "member directory".
 
-`THIS`::
-The directory containing the current script.  On Frontier/Slurm, this is found with a Slurm-specific variable.  On Aurora/PBS, we can use `PBS_O_WORKDIR`.  But it is better to look this up for each run script for interactive cases where the user may `cd` from the original submit-time directory.
-
 `WORKFLOW_DIR`::
 The top-level directory `unified-impeccable/workflow`
 
 `WORKFLOW_STEP`::
 The step-level directory `unified-impeccable/workflow/stepN`
 
-`IMPECCABLE_WORK`::
-The filtered job scripts from `impecc-job` are copied and run from here, with job logs.  Intermediate data is also stored here.  This must be set in the `SETTINGS_IMPECCABLE` script.
-
-`SETTINGS_JOB`::
-The job settings, such as `NODES` and `QUEUE` are stored here.
-
-`SETTINGS_IMPECCABLE`::
-The application settings, such as `INFERENCE_DATA` and `SAMPLE_SIZE`, are stored here.
-
 === Workflow-level scripts
 
-* `site-SITE-settings.sh`
+* `site-SITE-settings.sh`: The site configuration script.
 ** General Software
-*** Sets up non-Python software (licenses, schedulers)
+*** Sets up non-Python software (licenses, schedulers, NAMD)
 ** Python Settings
 *** Loads Anaconda, etc.
 ** User Settings
 *** Specific to the user that cloned the workflow.  User must specify the location of the IMPECCABLE clone and a desired output directory.
-* `impeccable-template.sh`
+* `impeccable-template.sh`: The template for `SETTINGS_IMPECCABLE`.
 ** Application-level settings for a specific science run.
 ** User may edit this to set `SMILES_INPUT`, `RECEP_FILE`, `INFERENCE_DATA` locations, etc.
 * `job-settings.sh`
@@ -151,14 +148,22 @@ You can point to this or make a copy.
 Steps must be run in order to produce all the intermediate data.
 
 . `cd` into `stepN`
-. Copy `job-template.sh` to `job-settings.sh` and edit
-. Run either:
+. Copy `job-template.sh` to `settings-job.sh` and edit
+. Run `impecc-job`:
+.. The command line is of the form:
++
+----
+$ impecc-job SUBMITTER SCRIPT_SH SETTINGS_JOB SETTINGS_IMPECCABLE
+----
++
+All steps in a workflow campaign have the same `SETTINGS_IMPECCABLE` file.  Science results should not be affected by anything in `SETTINGS_JOB`, these just affect how the job is run on the infrastructure.
++
 .. Interactive:
 ... Get an <<ui_session,interactive session>> running
 ... Run:
 +
 ----
-$ impecc-job bash sub_pP_sN-SITE.sh job-settings.sh
+$ impecc-job bash sub_pP_sN-SITE.sh settings-job.sh settings-impeccable.sh
 ----
 +
 .. Scheduled on Aurora:

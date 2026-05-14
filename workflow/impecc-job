@@ -9,23 +9,28 @@ LABEL="impecc-job"
 source $THIS/utils.sh
 PATH=$THIS:$PATH
 
-if (( ${#} != 3 ))
+if (( ${#} != 4 ))
 then
-  fail "provide SUBMITTER SCRIPT SETTINGS"
+  fail "provide SUBMITTER SCRIPT SETTINGS_JOB SETTINGS_IMPECCABLE"
 fi
 SUBMITTER=$1
 SCRIPT_SH=$2
-SETTINGS=$3
+SETTINGS_JOB=$3
+SETTINGS_IMPECCABLE=$4
 
 assert-program $SUBMITTER
-assert-exist $SCRIPT_SH $SETTINGS
+assert-exist $SCRIPT_SH $SETTINGS_JOB $SETTINGS_IMPECCABLE
+
+# Source this for settings, particularly IMPECCABLE_WORK,
+# then pass this into all processed job scripts:
+source-checked $SETTINGS_IMPECCABLE
+export SETTINGS_IMPECCABLE
 
 # Provide defaults:
 : ${NODES:=1} ${WALLTIME:=00:05:00} ${QUEUE:=debug}
 
 # Source settings to override defaults:
-msg "sourcing:" $SETTINGS
-source $SETTINGS
+source-checked -v $SETTINGS_JOB
 
 # There is no default NAME:
 if [[ ${NAME:-UNSET} == "UNSET" ]]
@@ -37,8 +42,8 @@ SCRIPT=${SCRIPT_SH%.sh}
 
 export WORKFLOW_STEP=$( realpath $( dirname $SCRIPT ) )
 
-mkdir -pv $IMPECCABLE_WORK
-SUBMIT_SH=$( mktemp --suffix .sh $IMPECCABLE_WORK/${SCRIPT}_job-XXX )
+mkdir -pv $IMPECCABLE_WORK/jobs
+SUBMIT_SH=$( mktemp --suffix .sh $IMPECCABLE_WORK/jobs/${SCRIPT}_job-XXX )
 # Construct output file name:
 export OUTPUT=${SUBMIT_SH/.sh/.txt}
 
@@ -57,7 +62,7 @@ touch $SUBMIT_SH
 if [[ $SUBMITTER != "bash" ]]
 then
   msg "submitting job..."
-  printf "PROCS: %4i\n" ${PROCS:-1}
+  printf "NODES: %4i\n" ${NODES:-1}
   printf "PPN:   %4i\n" ${PPN:-1}
 fi
 

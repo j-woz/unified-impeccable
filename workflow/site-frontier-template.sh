@@ -40,4 +40,4 @@ IMPECCABLE_CODE=$TOP/IMPECCABLE.jw
 
 # Per-user top-level output directory
 # Each step has a separate directory under here:
-WORK_TOP=$TOP/wf-out
+IMPECCABLE_WORK=$TOP/wf-out

@@ -77,6 +77,28 @@ assert-program()
   done
 }
 
+source-checked()
+# Source 1 script, checking for errors
+# Provide -v for verbose
+{
+  if [[ ${1:-x} == "-v" ]]
+  then
+    shift
+    msg "sourcing:" $SETTINGS_JOB
+  fi
+
+  if (( ${#*} != 1 ))
+  then
+    crash "source-checked: Provide 1 script!"
+  fi
+  local SCRIPT=$1
+  if ! source $SCRIPT
+  then
+    msg "source-checked: sourcing '$SCRIPT' failed!"
+    return 1
+  fi
+}
+
 show()
 # Report variable names with their values
 # Assumes LABEL is a global
@@ -245,4 +267,17 @@ namd-margin-0()
   then
     sed -i "/run/imargin 0.0" $CFG
   fi
+}
+
+time-start()
+{
+  START=$( date "+%s.%N" )
+}
+
+time-report()
+{
+  local NOW=$( date "+%s.%N" )
+
+  printf "TIME: "
+  echo "scale=3 ; $NOW - $START" | bc
 }
