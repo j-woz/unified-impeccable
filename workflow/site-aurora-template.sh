@@ -50,4 +50,3 @@ report_conda
 
 # This is the user's git clone of IMPECCABLE:
 IMPECCABLE_CODE=$HOME/proj/IMPECCABLE_2.0
-
