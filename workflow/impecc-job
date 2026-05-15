@@ -26,6 +26,8 @@ assert-exist $SCRIPT_SH $SETTINGS_JOB $SETTINGS_IMPECCABLE
 source-checked $SETTINGS_IMPECCABLE
 export SETTINGS_IMPECCABLE
 
+msg "WORK:" $IMPECCABLE_WORK
+
 # Provide defaults:
 : ${NODES:=1} ${WALLTIME:=00:05:00} ${QUEUE:=debug}
 
