@@ -44,8 +44,9 @@ mkdir -pv $MIOPEN_USER_DB_PATH
 # echo $CONDA_EXE
 
 MPIEXEC_FLAGS=(
-  -n   $PROCS
-  --ppn $PPN # $TASKS_PER_NODE
+  -n    $PROCS
+  --ppn $PPN
+  # $TASKS_PER_NODE
 )
 
 hostname
