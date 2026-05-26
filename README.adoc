@@ -15,19 +15,21 @@ Code is `/htp_docking`
 `sub_p1_s1`: WALLTIME=20m
 +
 * Single big mpi4py run...
+* Writes to `MEM_DIR/scores/*.csv`
 * Frontier: success in <22 minutes
 * Aurora:   success in <11 minutes
 ** Needs `module frameworks` plus `rdkit`
 ** Uses environment `step1`
 * Reads from `DATASET`, e.g., `InferenceData/BDB` or `InferenceData/ZIN`
-* Writes to `MEM_DIR/scores/*.csv` 
 
 Step 2: "Surrogate Training"::
 Code is `/surrogate_training`
 +
 `sub_p1_s2`: - WALLTIME=1h
 +
-* MPI layout TOTALLY DIFFERENT?
+* Single big Horovod run
+* Merges `MEM_DIR/scores/*.csv` to `unprocessed.csv`
+* Trains on scores in `unprocessed.csv`
 * Frontier: success in <10 minutes
 * Aurora:   works now: 2026-01-20
 ** Needs `module tensorflow` which includes `horovod keras tensorflow` plus `IPython` and `pip SmilesPE` in
@@ -36,13 +38,15 @@ Code is `/surrogate_training`
 Step 3: "Surrogate Inference"::
 Code is `/surrogate_inference`
 +
+* Performs inference on all CSVs in `InferenceData/{BDB,ZIN}/*.csv`
+* Writes to `WORK/step3/mem0/output/{BDB,ZIN}/*.dat`
 * Frontier: `sub_p1_s3` - WALLTIME=1h - success in <10 minutes
 * Aurora:   `sub_p1_s3` - WALLTIME=1h - success in <10 minutes
 ** Needs TensorFlow, mpi4py, Pandas
 ** Uses environment `step3`
 
 Step 4a: "Pose Generation"::
-Code is `/pose_generation`
+Code is `/pose_generation/docking_openeye_pose.py`
 +
 * Uses OpenEye, MDAnalysis, mpi4py
 * Frontier: `sub_p2_s4a` - WALLTIME=1h - success in <2 minutes
