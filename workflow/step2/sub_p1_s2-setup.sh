@@ -2,6 +2,7 @@
 # SUB P1 S2 SETUP
 # Portable setup script
 # Assumes SITE is in the environment
+# Assumes utils.sh has been sourced
 
 if (( ${#*} != 2 ))
 then
@@ -13,14 +14,12 @@ fi
 CONDA_INSTALLATION=$1
 CONDA_ENVIRONMENT=$2
 
-source $WORKFLOW_DIR/utils.sh
-
 source $WORKFLOW_STEP/../site-${SITE:-UNKNOWN}-settings.sh \
        $CONDA_INSTALLATION $CONDA_ENVIRONMENT
 
 # Setting paths
 CODE_DIR=$IMPECCABLE_CODE/surrogate_training
-export WORK_DIR=$WORK_TOP/step2
+export WORK_DIR=$IMPECCABLE_WORK/step2
 MEM_ID=0
 MEM_DIR=$WORK_DIR/mem$MEM_ID
 mkdir -p $MEM_DIR
@@ -38,8 +37,12 @@ sed -i "s@PLACEHOLDER_DIR/VocabFiles@${WORK_DIR}/VocabFiles@g" config_training.j
 # Substitute number of epochs
 sed -i "s/ 300,/ 5,/g" config_training.json
 (
+  which python
+  hostname
+  echo "PWD:" $( pwd -P )
   set -x
-  python $WORK_DIR/preprocess.py -s $STEP1_DIR/scores -o trainoutput
+  # Doing manual preprocess for now!
+  python $WORK_DIR/preprocess_text.py -s $STEP1_DIR/scores -o trainoutput
 )
 NNODES=1
 TASKS_PER_NODE=8
