@@ -50,8 +50,8 @@ SUBMIT_SH=$( mktemp --suffix .sh $IMPECCABLE_WORK/jobs/${SCRIPT}_job-XXX )
 export OUTPUT=${SUBMIT_SH/.sh/.txt}
 
 msg "writing: " $SUBMIT_SH
-# Check for permission errors:
-touch $SUBMIT_SH
+# Check for permission errors and enable user to immediately tail:
+touch $SUBMIT_SH $OUTPUT
 
 {
   echo "#!/bin/bash"
