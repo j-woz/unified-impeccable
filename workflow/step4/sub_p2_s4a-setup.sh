@@ -21,9 +21,24 @@ source $WORKFLOW_STEP/../site-${SITE:-UNKNOWN}-settings.sh \
        $CONDA_INSTALLATION $CONDA_ENVIRONMENT
 
 CODE_DIR=$IMPECCABLE_CODE/pose_generation
-export WORK_DIR=$WORK_TOP/step4
+export WORK_DIR=$IMPECCABLE_WORK/step4
 
+LABEL=$NAME
 MEM_ID=0
+
+# Sort data from step3:
+STEP3_DIR=$IMPECCABLE_WORK/step3
+cp -v --backup=numbered \
+   $IMPECCABLE_CODE/surrogate_inference/{sorting.py,validate_3.py} $STEP3_DIR
+cd $STEP3_DIR/mem$MEM_ID
+python3 $STEP3_DIR/sorting.py
+
+# Validate results from step3:
+LABEL=validate_3
+tm python $STEP3_DIR/validate_3.py
+LABEL=$NAME
+
+# Start step4 setup:
 MEM_DIR=$WORK_DIR/mem$MEM_ID
 
 ITER=0 # p2: 0, p3: >=1
@@ -48,9 +63,14 @@ protein_pdb=prot.pdb
 NNODES=1
 TASKS_PER_NODE=64
 
+msg "PREPROCESSING ..."
+msg "comp_file:" $( realpath $comp_file )
+
 # Pre-processing
 awk -F, -v comp=$N_COMPS -v col=$col_id '(NR>1 && NR<=comp+1) {print $col"\t"NR-2}' $comp_file > compounds.smi
+msg "wrote: compounds.smi"
 fixpka compounds.smi fixpka_compounds.smi
 sed 's/[^+]//g' fixpka_compounds.smi | awk '{ print length }' > pos.dat
 awk -F '-]' '{ print NF - 1}' fixpka_compounds.smi > neg.dat
 paste pos.dat neg.dat fixpka_compounds.smi | awk '{ print $NF","$1-$2 }' > charges.csv
+msg "PREPROCESSING OK."

@@ -9,27 +9,32 @@
 #PBS -j oe
 #PBS -l walltime=m4_getenv(WALLTIME)
 #PBS -q m4_getenv(QUEUE)
-#PBS -l nodes=m4_getenv(NODES):ppn=64
+#PBS -l nodes=m4_getenv(NODES):ppn=m4_getenv(PPN)
 #PBS -l filesystems=home:flare
 
 set -eu
 
-SITE=aurora
-LABEL=m4_getenv(NAME)
+export SITE=aurora
+NAME=m4_getenv(NAME)
+LABEL=$NAME
 export NODES=m4_getenv(NODES)
 export PPN=m4_getenv(PPN)
 
 WORKFLOW_STEP=m4_getenv(WORKFLOW_STEP)
 cd $WORKFLOW_STEP
 
-source $WORKFLOW_STEP/../impeccable-settings.sh
+echo "JOB:" $PBS_JOBID
+
+source $WORKFLOW_STEP/../utils.sh
+
+SETTINGS_IMPECCABLE=m4_getenv(SETTINGS_IMPECCABLE)
+source-checked $SETTINGS_IMPECCABLE
 
 source $WORKFLOW_STEP/sub_p2_s4a-setup.sh \
        /opt/aurora/25.190.0/oneapi/intel-conda-miniforge \
        /tmp/PY-IMPECCABLE/step4
 
-# TMP CHANGE!
-TASKS_PER_NODE=32
+LABEL=$NAME
 
 MPIEXEC_FLAGS=(
   -n   $PROCS
@@ -42,10 +47,8 @@ A=( -s fixpka_compounds.smi
     -o output_combined_trajectories
   )
 
-LABEL=m4_getenv(NAME)
 (
   PATH=/opt/cray/pals/1.8/bin:$PATH
-  set -x
   which mpiexec
   tm mpiexec ${MPIEXEC_FLAGS[@]} \
      python $WORK_DIR/docking_openeye_pose.py ${A[@]}
