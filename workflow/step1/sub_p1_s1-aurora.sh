@@ -30,6 +30,8 @@ source $WORKFLOW_STEP/../utils.sh
 SETTINGS_IMPECCABLE=m4_getenv(SETTINGS_IMPECCABLE)
 source-checked $SETTINGS_IMPECCABLE
 
+echo "JOB:" $PBS_JOBID
+
 source $WORKFLOW_STEP/sub_p1_s1-setup.sh \
        /opt/aurora/26.26.0/spack/unified/1.1.1/install/linux-x86_64/miniforge3-25.11.0-1-khkcc6i \
        /tmp/PY-IMPECCABLE/step1
@@ -45,7 +47,7 @@ MPIEXEC_FLAGS=(
   printf "using mpiexec: "
   which mpiexec
   show PWD
-  LABEL=p1_s1_train
+  LABEL=p1_s1_dock
   tm mpiexec ${MPIEXEC_FLAGS[@]} python $WORK_DIR/docking_openeye.py
   # 64
   # DB INSERT "sub_p1_s1/docking" OK;
@@ -53,9 +55,7 @@ MPIEXEC_FLAGS=(
 
 # Validating runs
 (
-  VALIDATE_ARGS=( -s $MEM_DIR/scores -c $WORKFLOW_DIR/config_htp.json )
-
-  set -x
+  VALIDATE_ARGS=( -s $MEM_DIR/scores -c $MEM_DIR/config_htp.json )
 
   cd $MEM_DIR
   pwd -P
@@ -64,4 +64,5 @@ MPIEXEC_FLAGS=(
   # DB INSERT "sub_p1_s1/validate" OK;
 )
 
-echo $0 OK
+LABEL=p1_s1
+msg "DONE."
