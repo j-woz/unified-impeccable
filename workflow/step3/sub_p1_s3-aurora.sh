@@ -9,25 +9,31 @@
 #PBS -j oe
 #PBS -l walltime=m4_getenv(WALLTIME)
 #PBS -q m4_getenv(QUEUE)
-#PBS -l nodes=m4_getenv(NODES):ppn=8
+#PBS -l nodes=m4_getenv(NODES):ppn=m4_getenv(PPN)
 #PBS -l filesystems=home:flare
 
+set -eu
+
 LABEL=m4_getenv(NAME)
-NODES=m4_getenv(NODES)
-PPN=m4_getenv(PPN)
 
 WORKFLOW_STEP=m4_getenv(WORKFLOW_STEP)
 cd $WORKFLOW_STEP
 
-export SITE=aurora
+NODES=m4_getenv(NODES)
+export PPN=m4_getenv(PPN)
 
-source $WORKFLOW_STEP/../impeccable-settings.sh
+source $WORKFLOW_STEP/../utils.sh
+
+echo "JOB:" $PBS_JOBID
+
+SETTINGS_IMPECCABLE=m4_getenv(SETTINGS_IMPECCABLE)
+source-checked $SETTINGS_IMPECCABLE
+
+export SITE=aurora
 
 source $WORKFLOW_STEP/sub_p1_s3-setup.sh \
        /opt/aurora/25.190.0/oneapi/intel-conda-miniforge \
        /tmp/PY-IMPECCABLE/step3
-
-set -eu
 
 MPIEXEC_FLAGS=(
   -n   $PROCS
@@ -43,19 +49,13 @@ APP=(
 # Executing runs
 (
   PATH=/opt/cray/pals/1.8/bin:$PATH
-
+  echo CONDA_PREFIX=$CONDA_PREFIX
   set -x
 
   which mpiexec python
-  echo CONDA_PREFIX=$CONDA_PREFIX
-  mpiexec ${MPIEXEC_FLAGS[@]} python ${APP[@]}
+  mpiexec ${MPIEXEC_FLAGS[@]} $AFFINITY python ${APP[@]}
 )
 
-set -x
-# post-processing
-cd $MEM_DIR
-python3 $WORK_DIR/sorting.py
+# Moved sorting.py to step4a
 
-# Validating runs
-cd $MEM_DIR
-python $WORK_DIR/validate_3.py
+# TODO: Come up with some other validation

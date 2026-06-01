@@ -19,7 +19,7 @@ source $WORKFLOW_STEP/../site-${SITE:-UNKNOWN}-settings.sh \
        $CONDA_INSTALLATION $CONDA_ENVIRONMENT
 
 CODE_DIR=$IMPECCABLE_CODE/surrogate_inference
-export WORK_DIR=$WORK_TOP/step3
+export WORK_DIR=$IMPECCABLE_WORK/step3
 
 MEM_ID=0
 MEM_DIR=$WORK_DIR/mem$MEM_ID
@@ -29,7 +29,6 @@ STEP2_DIR=$WORK_DIR/../step2/mem$MEM_ID
 # Setting runs
 cp -r $CODE_DIR/* $WORK_DIR/
 cd $MEM_DIR
-DATASET=BDB
 mkdir -p output/$DATASET
 mkdir -p Sorting_all
 #rm -f model.weights.h5
