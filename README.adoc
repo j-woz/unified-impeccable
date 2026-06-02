@@ -36,10 +36,10 @@ Code is `/surrogate_training`
 ** Uses environment `step2`
 
 Step 3: "Surrogate Inference"::
-Code is `/surrogate_inference`
+Code is `/surrogate_inference/smiles_regress_transformer_run_large.py`
 +
 * Performs inference on all CSVs in `InferenceData/{BDB,ZIN}/*.csv`
-* Writes to `WORK/step3/mem0/output/{BDB,ZIN}/*.dat`
+* Writes to `WORK/step3/mem0/output/{BDB,ZIN}/*.dat`, probably 1 DAT for 1 CSV
 * Frontier: `sub_p1_s3` - WALLTIME=1h - success in <10 minutes
 * Aurora:   `sub_p1_s3` - WALLTIME=1h - success in <10 minutes
 ** Needs TensorFlow, mpi4py, Pandas
@@ -104,6 +104,13 @@ The top-level directory `unified-impeccable/workflow`
 
 `WORKFLOW_STEP`::
 The step-level directory `unified-impeccable/workflow/stepN`
+
+`SAMPLE_SIZE`::
+Number of samples docked in step1 and used to train the surrogate in step2.
+Not used in Phase 2 (`p2`).
+
+`N_COMPS`::
+Number of compounds to evaluate.  Determines workflow size in Phase 2 (`p2`).
 
 === Workflow-level scripts
 
