@@ -34,7 +34,7 @@ module load oneapi mpich
 PATH=/lus/flare/projects/IMPECCAFLOW/sfw/swift-t_2026-05-14/turbine/bin:$PATH
 if [[ ! -e $CONDA_TARGET ]]
 then
-  show -c NODES
+  # show -c NODES
   msg "copying $ENVIRONMENT_TAR ..."
   if mpiexec -n $NODES --ppn 1 \
              mpi-cp $ENVIRONMENT_TAR /tmp
