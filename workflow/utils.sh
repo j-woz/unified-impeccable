@@ -278,6 +278,6 @@ time-report()
 {
   local NOW=$( date "+%s.%N" )
 
-  printf "TIME: "
-  echo "scale=3 ; $NOW - $START" | bc
+  echo -n "TIME: " "${LABEL:-}: "
+  perl -e 'printf "%.2f\n", $ARGV[0] - $ARGV[1]' $NOW $START
 }
