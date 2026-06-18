@@ -16,7 +16,7 @@ source $WORKFLOW_DIR/utils.sh
 source $THIS/../site-${SITE:-UNKNOWN}-settings.sh \
        $CONDA_INSTALLATION $CONDA_ENVIRONMENT
 
-export WORK_DIR=$WORK_TOP/step5
+export WORK_DIR=$IMPECCABLE_WORK/step5
 
 # Setting paths
 MEM_ID=0

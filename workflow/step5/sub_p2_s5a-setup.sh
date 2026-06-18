@@ -12,14 +12,14 @@ fi
 CONDA_INSTALLATION=$1
 CONDA_ENVIRONMENT=$2
 
-source $THIS/../site-${SITE:-UNKNOWN}-settings.sh \
+source $WORKFLOW_DIR/site-${SITE:-UNKNOWN}-settings.sh \
        $CONDA_INSTALLATION $CONDA_ENVIRONMENT
 
-export WORK_DIR=$WORK_TOP/step5
+export WORK_DIR=$IMPECCABLE_WORK/step5
 
 # Setting paths
 CODE_DIR=$IMPECCABLE_CODE/esmacs
-export WORK_DIR=$WORK_TOP/step5
+export WORK_DIR=$IMPECCABLE_WORK/step5
 MEM_ID=0
 MEM_DIR=$WORK_DIR/mem$MEM_ID
 ITER=0 # p2: 0, p3: >=1

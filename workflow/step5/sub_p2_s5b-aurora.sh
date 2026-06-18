@@ -1,25 +1,28 @@
 #!/bin/bash
 
-# #SBATCH -A CHM155_001
-# #SBATCH -J p2_s5b
-# #SBATCH -o %x-%j.out
-# #SBATCH -e %x-%j.err
-# #SBATCH -t 1:00:00
-# #SBATCH -p batch
-# ##SBATCH -q debug
-# #SBATCH -N 1
-# #SBATCH --tasks-per-node 8
-# #SBATCH -S 0
+# SUB P2 S5B AURORA
 
-THIS=$( realpath $( dirname $0 ) )
-cd $THIS
+#PBS -A IMPECCAFLOW
+#PBS -N m4_getenv(NAME)
+# Merge streams:
+#PBS -o m4_getenv(OUTPUT)
+#PBS -j oe
+#PBS -l walltime=m4_getenv(WALLTIME)
+#PBS -q m4_getenv(QUEUE)
+#PBS -l nodes=m4_getenv(NODES):ppn=8
+#PBS -l filesystems=home:flare
+
+set -eu
 
 export SITE=aurora
+LABEL=m4_getenv(NAME)
+NODES=m4_getenv(NODES)
+PPN=m4_getenv(PPN)
 
-source $THIS/../impeccable-settings.sh
-source $THIS/sub_p2_s5b-setup.sh \
-       /opt/aurora/24.180.3/oneapi/intel-conda-miniforge \
-       /tmp/PY-IMPECCABLE/steps123
+source $WORKFLOW_STEP/../impeccable-settings.sh
+source $WORKFLOW_STEP/sub_p2_s5a-setup.sh \
+       /opt/aurora/25.190.0/oneapi/intel-conda-miniforge \
+       /tmp/PY-IMPECCABLE/step4
 
 PATH=$HOME/proj/uni-impec/namd_minimize_example:$PATH
 NAMD=namd2

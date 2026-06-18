@@ -13,12 +13,12 @@ CONDA_ENVIRONMENT=$2
 
 source $WORKFLOW_DIR/utils.sh
 
-source $THIS/../site-${SITE:-UNKNOWN}-settings.sh \
+source $WORKFLOW_DIR/site-${SITE:-UNKNOWN}-settings.sh \
        $CONDA_INSTALLATION $CONDA_ENVIRONMENT
 
 # Setting paths
 CODE_DIR=$IMPECCABLE_CODE/pose_generation
-WORK_DIR=$WORK_TOP/step5
+WORK_DIR=$IMPECCABLE_WORK/step5
 
 MEM_ID=0
 MEM_DIR=$WORK_DIR/mem$MEM_ID
