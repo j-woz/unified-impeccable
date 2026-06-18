@@ -53,12 +53,14 @@ MPIEXEC_FLAGS=(
 )
 
 LABEL=p1_s2
-hostname
-# Catch errors: TF/HVD crash on exit on Aurora:
-if tm mpiexec ${MPIEXEC_FLAGS[@]} python3 $WORK_DIR/smiles_regress_transformer_run.py
+SRTR=$WORK_DIR/smiles_regress_transformer_run.py
+msg "MPIEXEC:" $( which mpiexec )
+msg "RUN:    " $SRTR
+if tm mpiexec ${MPIEXEC_FLAGS[@]} python3 $SRTR
 then
   msg "mpiexec python: OK"
 else
+  # Catch errors: TF/HVD crash on exit on Aurora:
   CODE=${?}
   if (( CODE == 139 ))
   then
