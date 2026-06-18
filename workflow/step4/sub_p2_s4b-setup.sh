@@ -17,13 +17,12 @@ source $WORKFLOW_STEP/../site-${SITE:-UNKNOWN}-settings.sh \
        $CONDA_INSTALLATION $CONDA_ENVIRONMENT
 
 # Setting paths
-export WORK_DIR=$WORK_TOP/step4
+export WORK_DIR=$IMPECCABLE_WORK/step4
 MEM_ID=0
 MEM_DIR=$WORK_DIR/mem$MEM_ID
 ITER=0 # p2: 0, p3: >=1
 ITR_DIR=$MEM_DIR/itr$ITER
-mkdir -p $ITR_DIR
 
-# Setting runs
-cd $ITR_DIR
-N_COMPS=50
+# This should be created by step4a:
+# echo "mkdir ITR_DIR:"
+# mkdir -pv $ITR_DIR
