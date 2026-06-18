@@ -203,8 +203,8 @@ report-py-settings()
   msg "report-py-settings() ..."
   if ! which python 2>&1 > /dev/null
   then
-    msg "no python in PATH!"
-    return 1
+    msg "WARNING: no python in PATH!"
+    return
   fi
   if [[ ${CONDA_PREFIX:-0} == 0 ]]
   then
@@ -280,4 +280,17 @@ time-report()
 
   echo -n "TIME: " "${LABEL:-}: "
   perl -e 'printf "%.2f\n", $ARGV[0] - $ARGV[1]' $NOW $START
+}
+
+bak()
+{
+  if (( ${#} != 1 ))
+  then
+    echo "bak(): Provide a file!"
+  fi
+  local FILE=$1
+  if [[ -e $FILE ]]
+  then
+    mv -v --backup=numbered $FILE $FILE.bak
+  fi
 }
