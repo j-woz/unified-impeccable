@@ -1,32 +1,36 @@
 #!/bin/bash
 
-# #SBATCH -A CHM155_001
-# #SBATCH -J p2_s4d
-# #SBATCH -o %x-%j.out
-# #SBATCH -e %x-%j.err
-# #SBATCH -t 1:00:00
-# #SBATCH -p batch
-# ##SBATCH -q debug
-# #SBATCH -N 1
-# #SBATCH --tasks-per-node 64
-# #SBATCH -S 0
+# SUB P2 S4D AURORA
+
+#PBS -A IMPECCAFLOW
+#PBS -N m4_getenv(NAME)
+# Merge streams:
+#PBS -o m4_getenv(OUTPUT)
+#PBS -j oe
+#PBS -l walltime=m4_getenv(WALLTIME)
+#PBS -q m4_getenv(QUEUE)
+#PBS -l nodes=m4_getenv(NODES):ppn=64
+#PBS -l filesystems=home:flare
 
 set -eu
 
-THIS=$( realpath $( dirname $0 ) )
-cd $THIS
+SITE=aurora
+LABEL=m4_getenv(NAME)
+NODES=m4_getenv(NODES)
+PPN=m4_getenv(PPN)
 
-export SITE=aurora
+WORKFLOW_STEP=m4_getenv(WORKFLOW_STEP)
+cd $WORKFLOW_STEP
 
-source $THIS/../impeccable-settings.sh
+source $WORKFLOW_STEP/../impeccable-settings.sh
 
-source $THIS/sub_p2_s4d-setup.sh \
-       /opt/aurora/24.180.3/oneapi/intel-conda-miniforge \
-       /tmp/PY-IMPECCABLE/steps123
+source $WORKFLOW_STEP/sub_p2_s4d-setup.sh \
+       /opt/aurora/25.190.0/oneapi/intel-conda-miniforge \
+       /tmp/PY-IMPECCABLE/step4
 
 # Executing runs
 
-MPI_ARGS=( -n $((NNODES*TASKS_PER_NODE))
+MPI_FLAGS=( -n $((NNODES*TASKS_PER_NODE))
            --ppn 64 )
 
 # Ensure Cray MPI
@@ -39,8 +43,8 @@ do
   pwd
   mkdir -pv $ITR_DIR/min/$i/mmpbsa
 
-  assert-exists -v $WORK_DIR/model-inputs/mmpbsa.in \
-                   $ITR_DIR/min/$i/mmpbsa
+  assert-exist -v $WORK_DIR/model-inputs/mmpbsa.in \
+                  $ITR_DIR/min/$i/mmpbsa
 
   sed "s/START/$f_start/;s/END/$f_end/" $WORK_DIR/model-inputs/mmpbsa.in > \
       $ITR_DIR/min/$i/mmpbsa/mmpbsa.in
@@ -58,7 +62,7 @@ do
     set -x
     pwd
     which mpiexec
-    # mpiexec ${MPI_ARGS[@]} MMPBSA.py.MPI ${MMPBSA_ARGS[@]}
+    mpiexec ${MPI_FLAGS[@]} MMPBSA.py.MPI ${MMPBSA_ARGS[@]}
     # mpiexec -n 16 python ~/proj/uni-impec/tests/test-mpi4py.py
     # rm -f reference.frc *.inpcrd *.pdb *.mdin* *.mdcrd*
   )
