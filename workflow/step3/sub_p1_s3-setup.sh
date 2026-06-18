@@ -37,7 +37,3 @@ sed -i "s@INFERENCE_DATA@$INFERENCE_DATA@g" config_inference.json
 sed -i "s/ZIN/$DATASET/g" config_inference.json
 sed -i "s@PLACEHOLDER_DIR/VocabFiles@${WORK_DIR}/VocabFiles@g" config_inference.json
 sed -i "s/ 400,/ 5,/g" config_inference.json
-set -x
-NNODES=1
-TASKS_PER_NODE=8
-set +x
