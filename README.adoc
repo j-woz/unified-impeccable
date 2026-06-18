@@ -49,6 +49,7 @@ Step 4a: "Pose Generation"::
 Code is `/pose_generation/docking_openeye_pose.py`
 +
 * Uses OpenEye, MDAnalysis, mpi4py
+* Writes to `step4/mem0/itr0/lig_confs`
 * Frontier: `sub_p2_s4a` - WALLTIME=1h - success in <2 minutes
 * Aurora:   `sub_p2_s4a` - success in <5 minutes
 ** Needs `module frameworks`
@@ -56,8 +57,14 @@ Code is `/pose_generation/docking_openeye_pose.py`
 ** Uses environment `step4`
 
 Step 4b: "Amber"::
+Just needs Python environment with Amber (nothing from IMPECCABLE_2.0?)
++
+* Reads from `step4/mem0/itr0/lig_confs`
+* Writes to `step4/{par-gen,models}`
+* Aurora:
 ** Needs `module frameworks`
-** `conda install ambertools` (mmpbsa.py) (mmpbsa.py.MPI)
+** `conda install ambertools`
+*** `p2_s4b_process.sh` uses `antechamber`, `parmchk2`, `tleap`
 ** Can merge with some environment?
 
 Step 4c: "NAMD"::
@@ -66,6 +73,7 @@ Step 4c: "NAMD"::
 * No scientific Python environment needed
 
 Step 4d: "MMPBSA"::
+Code is `/pose_generation/MMPBSA.
 * Same ambertools environment, mmpbsa.py
 
 Step 5: ::
