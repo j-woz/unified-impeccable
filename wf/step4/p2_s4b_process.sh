@@ -30,6 +30,19 @@ handle-error()
 
 mkdir -p par-gen/$lig models/$lig
 
+PDB=$ITR_DIR/lig_confs/$lig/0.pdb
+
+if [[ -f $PDB ]]
+then
+  echo "PDB: $PDB" $( stat --format "%s" $PDB )
+else
+  handle-error "PDB not found: $PDB"
+  exit # Normal exit, allow workflow to proceed
+fi
+
+# These are in conda package ambertools
+which antechamber tleap parmchk2 > /dev/null || exit 1
+
 (
   set -eu
   T0=$SECONDS
@@ -37,9 +50,6 @@ mkdir -p par-gen/$lig models/$lig
   exec > log.txt 2>&1
 
   msg "par-gen" $lig $ITR_DIR $WORK_DIR START
-
-  # These are in conda package ambertools
-  which antechamber tleap parmchk2 > /dev/null || exit 1
 
   #Execute commands for each ligand
   # Parameter generation
