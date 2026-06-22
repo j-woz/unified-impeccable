@@ -75,7 +75,7 @@ time-start
 (
   set -x
   # PPN should be automatic:
-  export TURBINE_APP_DEBUG=1
+  export TURBINE_APP_DEBUG=1 ADLB_PRINT_TIME=1
   mpiexec -n $PROCS turbine-pilot p2_s4b_process.tic p2_s4b_process.list
 )
 
